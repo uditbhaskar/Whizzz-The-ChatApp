@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Whizzz</string>
+    <string name="welcome">WELCOME</string>
+    <string name="hi_there">Hi there!</string>
+    <string name="log_in_to_continue">log in to continue.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+</resources>
