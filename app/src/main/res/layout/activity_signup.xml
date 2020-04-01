@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:background="@color/black"
-    tools:context=".view.ui.LoginActivity">
+    android:background="@color/black"
+    tools:context=".view.ui.SignupActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:layout_weight="2.5"
-            android:background="@drawable/ic_background_welcome_screen"
+            android:background="@drawable/ic_signup_background"
             android:padding="5dp" />
 
         <TextView
@@ -33,7 +33,7 @@
             android:autoSizeTextType="uniform"
             android:fontFamily="@font/kaushan"
             android:paddingTop="10dp"
-            android:text="@string/hi_there"
+            android:text="@string/welcome_sign"
             android:textColor="@color/white"
             android:textStyle="bold"
             tools:targetApi="o" />
@@ -47,17 +47,36 @@
             android:lineSpacingExtra="0.1sp"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text="@string/log_in_to_continue"
+            android:text="@string/sign_up_here"
             android:textColor="@color/white"
             android:textSize="25sp"
             tools:targetApi="o" />
 
         <EditText
 
-            android:id="@+id/et_login_email"
+            android:id="@+id/et_signin_username"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="35dp"
+            android:layout_marginEnd="30dp"
+            android:layout_weight="0.35"
+            android:background="@drawable/background_email_password"
+            android:drawableStart="@drawable/ic_username"
+            android:drawablePadding="30dp"
+            android:fontFamily="@font/kaushan"
+            android:hint="Username"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="#A9A8BC"
+            android:textStyle="bold" />
+
+        <EditText
+
+            android:id="@+id/et_signin_email"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="30dp"
             android:layout_weight="0.35"
             android:background="@drawable/background_email_password"
@@ -73,7 +92,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/et_login_password"
+            android:id="@+id/et_signin_password"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="28dp"
@@ -92,8 +111,8 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_login"
-            android:layout_width="110dp"
+            android:id="@+id/btn_signin"
+            android:layout_width="140dp"
             android:layout_height="0dp"
             android:layout_marginTop="48dp"
             android:layout_weight="0.365"
@@ -103,13 +122,12 @@
             android:gravity="center_vertical"
             android:paddingStart="15dp"
             android:paddingEnd="10dp"
-            android:text="@string/login"
+            android:text="@string/sign_up"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,4 +6,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="welcome_sign">Welcome!</string>
+    <string name="sign_up_here">Sign up here.</string>
+    <string name="sign_up">Sign up</string>
 </resources>
