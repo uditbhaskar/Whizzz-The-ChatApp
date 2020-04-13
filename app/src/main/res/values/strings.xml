@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">Whizzz</string>
-    <string name="welcome">WELCOME</string>
     <string name="hi_there">Hi there!</string>
-    <string name="log_in_to_continue">log in to continue.</string>
+    <string name="log_in_to_continue">Log in to continue.</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="welcome_sign">Welcome!</string>
     <string name="sign_up_here">Sign up here.</string>
     <string name="sign_up">Sign up</string>
+    <string name="already_have_an_account">Already have an account?\u0020</string>
+    <string name="login_here"> Login.</string>
+    <string name="vector_image">Vector Image</string>
+    <string name="username">Username</string>
 </resources>
