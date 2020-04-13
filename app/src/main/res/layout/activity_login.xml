@@ -73,7 +73,7 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-            android:textStyle="bold" />
+             />
 
         <EditText
             android:id="@+id/et_login_password"
@@ -92,7 +92,7 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-            android:textStyle="bold" />
+            />
 
         <Button
             android:id="@+id/btn_login"
