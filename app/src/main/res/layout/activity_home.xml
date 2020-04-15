@@ -4,16 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.HomeActivity">
+    android:background="@color/black">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="HOME PAGE!"
+        android:autoSizeTextType="uniform"
         android:gravity="center"
-        android:autoSizeTextType="uniform">
-
-    </TextView>
+        android:text="HOME PAGE"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"
+        tools:targetApi="o" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

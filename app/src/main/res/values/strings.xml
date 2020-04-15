@@ -12,4 +12,5 @@
     <string name="login_here"> Login.</string>
     <string name="vector_image">Vector Image</string>
     <string name="username">Username</string>
+    <string name="log_out">Log Out</string>
 </resources>

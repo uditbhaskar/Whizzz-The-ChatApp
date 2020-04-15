@@ -37,12 +37,13 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         init();
         listeners();
     }
 
     private void listeners() {
-
+;
         btn_signIn.setOnClickListener(new View.OnClickListener() {
             final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
