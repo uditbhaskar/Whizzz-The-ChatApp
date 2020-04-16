@@ -2,6 +2,7 @@ package com.example.whizzz.view.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -92,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
 
     private void init() {
         et_emailIdLogIn = findViewById(R.id.et_login_email);

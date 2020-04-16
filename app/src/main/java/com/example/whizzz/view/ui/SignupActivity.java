@@ -2,7 +2,10 @@ package com.example.whizzz.view.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.whizzz.R;
+import com.example.whizzz.services.repository.FirebaseSignUpInstance;
+import com.example.whizzz.viewModel.SignInViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +36,11 @@ public class SignupActivity extends AppCompatActivity {
     Button btn_signIn;
     TextView textToLogin;
     FirebaseAuth mAuth;
+    SignInViewModel signInViewModel;
+    String emailId;
+    String pwd;
+    String userName;
+    Context context;
 
 
     @Override
@@ -51,9 +61,9 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.startAnimation(buttonClick);
 
-                String emailId = et_emailIdSignIn.getText().toString();
-                String pwd = et_pwdSignIn.getText().toString();
-                String userName = et_usernameSignIn.getText().toString();
+                emailId = et_emailIdSignIn.getText().toString();
+                pwd = et_pwdSignIn.getText().toString();
+                userName = et_usernameSignIn.getText().toString();
                 if ((pwd.isEmpty() && emailId.isEmpty() && userName.isEmpty())) {
                     Toast.makeText(SignupActivity.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
                     et_usernameSignIn.requestFocus();
@@ -67,30 +77,7 @@ public class SignupActivity extends AppCompatActivity {
                     et_pwdSignIn.setError("Please set your password.");
                     et_pwdSignIn.requestFocus();
                 } else {
-                    mAuth.createUserWithEmailAndPassword(emailId, pwd).addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (!task.isSuccessful()) {
-                                try {
-                                    throw Objects.requireNonNull(task.getException());
-                                } catch (FirebaseAuthUserCollisionException existEmail) {
-                                    Toast.makeText(SignupActivity.this, "Email Id already exists.", Toast.LENGTH_SHORT).show();
-                                } catch (FirebaseAuthWeakPasswordException weakPassword) {
-                                    Toast.makeText(SignupActivity.this, "Password length should be more then six characters.", Toast.LENGTH_SHORT).show();
-                                } catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
-                                    Toast.makeText(SignupActivity.this, "Invalid credentials, please try again.", Toast.LENGTH_SHORT).show();
-                                } catch (Exception e) {
-                                    Toast.makeText(SignupActivity.this, "SignUp unsuccessful. Try again.", Toast.LENGTH_SHORT).show();
-                                }
-
-                            } else {
-                                Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(SignupActivity.this, HomeActivity.class));
-                                overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-                                finish();
-                            }
-                        }
-                    });
+                    signInUsers();
                 }
             }
         });
@@ -106,6 +93,23 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    public void signInUsers(){
+        signInViewModel.userSignIn(userName,emailId, pwd,context);
+        signInViewModel.signInUser.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignupActivity.this, HomeActivity.class));
+                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    finish();
+                }else{
+                    Toast.makeText(SignupActivity.this, "SignUp unsuccessful.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     private void init() {
         et_usernameSignIn = findViewById(R.id.et_signin_username);
         et_emailIdSignIn = findViewById(R.id.et_signin_email);
@@ -113,5 +117,9 @@ public class SignupActivity extends AppCompatActivity {
         btn_signIn = findViewById(R.id.btn_signin);
         textToLogin = findViewById(R.id.text_to_login);
         mAuth = FirebaseAuth.getInstance();
+        context=SignupActivity.this;
+        signInViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
+                .getInstance(getApplication()))
+                .get(SignInViewModel.class);
     }
 }
