@@ -53,7 +53,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void listeners() {
-;
+        ;
         btn_signIn.setOnClickListener(new View.OnClickListener() {
             final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
@@ -93,20 +93,32 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    public void signInUsers(){
-        signInViewModel.userSignIn(userName,emailId, pwd,context);
-        signInViewModel.signInUser.observe(this, new Observer<Boolean>() {
+    public void signInUsers() {
+        signInViewModel.userSignIn(userName, emailId, pwd);
+        signInViewModel.signInUser.observe(this, new Observer<Task>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean){
+            public void onChanged(Task task) {
+                if (!task.isSuccessful()) {
+                    try {
+                        throw Objects.requireNonNull(task.getException());
+                    } catch (FirebaseAuthUserCollisionException existEmail) {
+                        Toast.makeText(context, "Email Id already exists.", Toast.LENGTH_SHORT).show();
+                    } catch (FirebaseAuthWeakPasswordException weakPassword) {
+                        Toast.makeText(context, "Password length should be more then six characters.", Toast.LENGTH_SHORT).show();
+                    } catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
+                        Toast.makeText(context, "Invalid credentials, please try again.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(context, "SignUp unsuccessful. Try again.", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
                     Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignupActivity.this, HomeActivity.class));
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     finish();
-                }else{
-                    Toast.makeText(SignupActivity.this, "SignUp unsuccessful.", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
     }
 
@@ -117,8 +129,8 @@ public class SignupActivity extends AppCompatActivity {
         btn_signIn = findViewById(R.id.btn_signin);
         textToLogin = findViewById(R.id.text_to_login);
         mAuth = FirebaseAuth.getInstance();
-        context=SignupActivity.this;
-        signInViewModel=new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
+        context = SignupActivity.this;
+        signInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
                 .get(SignInViewModel.class);
     }
