@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     LogInViewModel logInViewModel;
     String emailLog;
     String pwdLog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 v.startAnimation(buttonClick);
 
-               emailLog = et_emailIdLogIn.getText().toString();
-               pwdLog = et_pwdLogIn.getText().toString();
+                emailLog = et_emailIdLogIn.getText().toString();
+                pwdLog = et_pwdLogIn.getText().toString();
 
                 if ((pwdLog.isEmpty() && emailLog.isEmpty())) {
                     Toast.makeText(LoginActivity.this, "Fields are empty!", Toast.LENGTH_SHORT).show();
@@ -77,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void logInUser(){
+    public void logInUser() {
         logInViewModel.userLogIn(emailLog, pwdLog);
         logInViewModel.logInUser.observe(this, new Observer<Task>() {
             @Override
