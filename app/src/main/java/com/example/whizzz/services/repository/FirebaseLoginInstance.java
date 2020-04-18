@@ -14,7 +14,7 @@ public class FirebaseLoginInstance {
     public MutableLiveData<Task> loginUser(String emailLogin,String pwdLogin){
         final MutableLiveData<Task> taskLogin = new MutableLiveData<>();
 
-        mAuth.createUserWithEmailAndPassword(emailLogin, pwdLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(emailLogin, pwdLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 taskLogin.setValue(task);
