@@ -35,7 +35,6 @@ public class SignupActivity extends AppCompatActivity {
     EditText et_pwdSignIn;
     Button btn_signIn;
     TextView textToLogin;
-    FirebaseAuth mAuth;
     SignInViewModel signInViewModel;
     String emailId;
     String pwd;
@@ -128,7 +127,6 @@ public class SignupActivity extends AppCompatActivity {
         et_pwdSignIn = findViewById(R.id.et_signin_password);
         btn_signIn = findViewById(R.id.btn_signin);
         textToLogin = findViewById(R.id.text_to_login);
-        mAuth = FirebaseAuth.getInstance();
         context = SignupActivity.this;
         signInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
