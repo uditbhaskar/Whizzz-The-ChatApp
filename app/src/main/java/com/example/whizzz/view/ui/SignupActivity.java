@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.whizzz.R;
 import com.example.whizzz.services.repository.FirebaseSignUpInstance;
+import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.SignInViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -36,11 +39,13 @@ public class SignupActivity extends AppCompatActivity {
     Button btn_signIn;
     TextView textToLogin;
     SignInViewModel signInViewModel;
+    DatabaseViewModel databaseViewModel;
     String emailId;
     String pwd;
     String userName;
     Context context;
-
+    String userId;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +57,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void listeners() {
-        ;
+
         btn_signIn.setOnClickListener(new View.OnClickListener() {
             final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
@@ -94,6 +99,14 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signInUsers() {
         signInViewModel.userSignIn(userName, emailId, pwd);
+        signInViewModel.getCurrentUserId();
+        signInViewModel.currentUserId.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                userId = s;
+            }
+        });
+
         signInViewModel.signInUser.observe(this, new Observer<Task>() {
             @Override
             public void onChanged(Task task) {
@@ -111,13 +124,29 @@ public class SignupActivity extends AppCompatActivity {
                     }
 
                 } else {
+                    addUserInDatabase(userName,emailId,userId);
                     Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignupActivity.this, HomeActivity.class));
+                    Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
                     finish();
                 }
             }
 
+        });
+    }
+
+    private void addUserInDatabase(String userName, String email, String userId ){
+        long tsLong = System.currentTimeMillis();
+        String timeStamp = Long.toString(tsLong);
+        url="xyz";
+        databaseViewModel.addUserDatabase(userId,userName,email,timeStamp,url);
+        databaseViewModel.successAddUserDb.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                Toast.makeText(context, "DATA ADDED IN DATABASE", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
@@ -131,5 +160,8 @@ public class SignupActivity extends AppCompatActivity {
         signInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
                 .get(SignInViewModel.class);
+        databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
+                .getInstance(getApplication()))
+                .get(DatabaseViewModel.class);
     }
 }

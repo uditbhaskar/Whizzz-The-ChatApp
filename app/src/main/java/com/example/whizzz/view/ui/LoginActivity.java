@@ -96,9 +96,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(LoginActivity.this, "Welcome back!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+                    finish();
                 }
 
             }

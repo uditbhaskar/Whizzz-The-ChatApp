@@ -24,7 +24,6 @@ public class HomeActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.logout, menu);
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @Override
