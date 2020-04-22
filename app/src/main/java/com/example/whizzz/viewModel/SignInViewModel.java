@@ -1,7 +1,5 @@
 package com.example.whizzz.viewModel;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,6 +10,7 @@ public class SignInViewModel extends ViewModel {
 
     private FirebaseSignUpInstance signUpInstance;
     public  LiveData<Task> signInUser;
+    public LiveData<String> currentUserId;
 
     public SignInViewModel(){
         signUpInstance = new FirebaseSignUpInstance();
@@ -20,5 +19,10 @@ public class SignInViewModel extends ViewModel {
     public void userSignIn(String userNameSignIn, String emailSignIn, String passwordSignIn){
         signInUser = signUpInstance.signInUser(userNameSignIn,emailSignIn,passwordSignIn);
     }
+
+    public void getCurrentUserId(){
+        currentUserId= signUpInstance.currentUserId;
+    }
+
 
 }
