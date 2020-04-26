@@ -1,10 +1,5 @@
 package com.example.whizzz.view.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.whizzz.R;
-import com.example.whizzz.services.repository.FirebaseSignUpInstance;
 import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.SignInViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Objects;
 
@@ -45,13 +39,14 @@ public class SignupActivity extends AppCompatActivity {
     String userName;
     Context context;
     String userId;
-    String url;
+    String imageUrl;
+    String timeStamp;
+    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        Objects.requireNonNull(getSupportActionBar()).hide();
         init();
         listeners();
     }
@@ -92,21 +87,13 @@ public class SignupActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-
+                finish();
             }
         });
     }
 
     public void signInUsers() {
         signInViewModel.userSignIn(userName, emailId, pwd);
-        signInViewModel.getCurrentUserId();
-        signInViewModel.currentUserId.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                userId = s;
-            }
-        });
-
         signInViewModel.signInUser.observe(this, new Observer<Task>() {
             @Override
             public void onChanged(Task task) {
@@ -124,12 +111,12 @@ public class SignupActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    addUserInDatabase(userName,emailId,userId);
+                    getUserSession();
+                    addUserInDatabase(userName, emailId, userId);
                     Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
                     finish();
                 }
             }
@@ -137,17 +124,32 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void addUserInDatabase(String userName, String email, String userId ){
+    private void addUserInDatabase(String userName, String email, String idUser) {
         long tsLong = System.currentTimeMillis();
-        String timeStamp = Long.toString(tsLong);
-        url="xyz";
-        databaseViewModel.addUserDatabase(userId,userName,email,timeStamp,url);
+        timeStamp = Long.toString(tsLong);
+        imageUrl = "default";
+        userId=currentUser.getUid();
+        databaseViewModel.addUserDatabase(userId, userName, email, timeStamp, imageUrl);
         databaseViewModel.successAddUserDb.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                Toast.makeText(context, "DATA ADDED IN DATABASE", Toast.LENGTH_SHORT).show();
+                if (aBoolean)
+                    Toast.makeText(context,"", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(context, "ERROR WHILE ADDING DATA IN DATABASE.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    public void getUserSession(){
+        signInViewModel.getUserFirebaseSession();
+        signInViewModel.userFirebaseSession.observe(this, new Observer<FirebaseUser>() {
+            @Override
+            public void onChanged(FirebaseUser firebaseUser) {
+                currentUser=firebaseUser;
+            }
+        });
+
     }
 
     private void init() {

@@ -7,11 +7,28 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class FirebaseLoginInstance {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
-    public MutableLiveData<Task> loginUser(String emailLogin,String pwdLogin){
+
+    public MutableLiveData<FirebaseUser> getFirebaseUserLoginStatus(){
+        final MutableLiveData<FirebaseUser> firebaseUserLoginStatus = new MutableLiveData<>();
+        firebaseUserLoginStatus.setValue(firebaseUser);
+        return firebaseUserLoginStatus;
+
+    }
+
+    public MutableLiveData<FirebaseAuth> getFirebaseAuth(){
+        final  MutableLiveData<FirebaseAuth> firebaseAuth = new MutableLiveData<>();
+        firebaseAuth.setValue(mAuth);
+        return firebaseAuth;
+    }
+
+
+    public MutableLiveData<Task> loginUser(String emailLogin, String pwdLogin) {
         final MutableLiveData<Task> taskLogin = new MutableLiveData<>();
 
         mAuth.signInWithEmailAndPassword(emailLogin, pwdLogin).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

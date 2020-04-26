@@ -108,6 +108,49 @@
             android:textSize="16sp"
             android:paddingBottom="2dp"
             android:layout_marginEnd="50dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="0.3"
+            android:orientation="horizontal"
+            android:weightSum="4"
+
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.3"
+                android:fontFamily="@font/pacifico"
+                android:gravity="end"
+                android:paddingStart="2dp"
+                android:paddingEnd="0dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="@string/don_t_have_an_account"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:ignore="NestedWeights" />
+
+            <TextView
+                android:id="@+id/text_to_signUp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.7"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/pacifico"
+                android:gravity="start"
+                android:paddingStart="0dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="2dp"
+                android:paddingBottom="2dp"
+                android:text="@string/register"
+                android:textColor="#63FF90"
+                android:textSize="18sp" />
+
+        </LinearLayout>
     </LinearLayout>
 
 

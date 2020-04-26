@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.whizzz.services.repository.FirebaseInstanceDatabase;
+import com.google.firebase.database.DataSnapshot;
 
 public class DatabaseViewModel extends ViewModel {
     private FirebaseInstanceDatabase instance;
     public LiveData<Boolean> successAddUserDb;
+    public  LiveData<DataSnapshot> fetchUserCurrentData;
 
     public DatabaseViewModel() {
         instance = new FirebaseInstanceDatabase();
@@ -17,5 +19,8 @@ public class DatabaseViewModel extends ViewModel {
         successAddUserDb = instance.addUserInDatabase(userId, userName, emailId, timestamp, imageUrl);
     }
 
+    public void fetchingUserData(){
+        fetchUserCurrentData= instance.fetchUserData();
+    }
 
 }
