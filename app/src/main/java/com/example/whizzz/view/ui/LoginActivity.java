@@ -39,8 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         init();
         getUserSession();
-
-
         listener();
     }
 
@@ -49,9 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         logInViewModel.firebaseUserLoginStatus.observe(this, new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
-                currentUser= firebaseUser;
-                if(currentUser!=null){
-
+                currentUser = firebaseUser;
+                if (currentUser != null) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
