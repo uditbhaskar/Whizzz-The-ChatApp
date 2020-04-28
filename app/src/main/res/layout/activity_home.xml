@@ -21,13 +21,15 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
+            android:background="@color/black">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile_image"
@@ -44,6 +46,22 @@
 
 
         </androidx.appcompat.widget.Toolbar>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                app:tabIndicatorColor="#fff"
+                app:tabSelectedTextColor="#fff"
+                app:tabTextColor="#A5A5AE" />
+        </androidx.viewpager.widget.ViewPager>
 
 
     </LinearLayout>
