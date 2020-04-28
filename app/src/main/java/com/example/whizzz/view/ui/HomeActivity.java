@@ -13,12 +13,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.example.whizzz.R;
 import com.example.whizzz.services.model.Users;
+import com.example.whizzz.view.adapters.ViewPagerAdapter;
+import com.example.whizzz.view.fragments.ChatFragment;
+import com.example.whizzz.view.fragments.ProfileFragment;
+import com.example.whizzz.view.fragments.UserFragment;
 import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.LogInViewModel;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 
@@ -36,13 +42,33 @@ public class HomeActivity extends AppCompatActivity {
     String username;
     String imageUrl;
 
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    ViewPagerAdapter viewPagerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         init();
+
         fetchCurrentUserdata();
+        setupPagerFragment();
         onOptionMenuClicked();
+
+    }
+
+    private void setupPagerFragment() {
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), ViewPagerAdapter.POSITION_UNCHANGED);
+
+        viewPagerAdapter.addFragment(new ChatFragment(this), "Chats");
+        viewPagerAdapter.addFragment(new UserFragment(this), "Users");
+        viewPagerAdapter.addFragment(new ProfileFragment(this), "Profile");
+
+        viewPager.setAdapter(viewPagerAdapter);
+
+        tabLayout.setupWithViewPager(viewPager);
+
 
     }
 
@@ -119,6 +145,8 @@ public class HomeActivity extends AppCompatActivity {
         linearLayout = findViewById(R.id.linearLayout);
         progressBar = findViewById(R.id.progress_bar);
 
+        tabLayout = findViewById(R.id.tab_layout);
+        viewPager = findViewById(R.id.view_pager);
 
     }
 }
