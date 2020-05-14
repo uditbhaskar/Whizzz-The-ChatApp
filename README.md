@@ -1,2 +1,2 @@
 # Whizzz
-A Chat Application.
+A Chat App.
