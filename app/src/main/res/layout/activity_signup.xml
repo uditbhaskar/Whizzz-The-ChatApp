@@ -21,12 +21,11 @@
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.055"
             android:layout_marginEnd="50dp"
+            android:layout_weight="3.055"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/welcome_page_animation"
-            />
+            app:lottie_rawRes="@raw/welcome_page_animation" />
 
         <TextView
             android:layout_width="match_parent"
@@ -62,18 +61,18 @@
             android:layout_marginEnd="50dp"
             android:layout_weight="0.35"
             android:background="@drawable/background_email_password"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ 1234567890"
             android:drawableStart="@drawable/ic_username"
-            android:drawablePadding="30dp"
 
+            android:drawablePadding="30dp"
             android:hint="@string/username"
             android:inputType="text"
-            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ 1234567890"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
 
-            />
+            android:autofillHints="" />
 
         <EditText
 
@@ -93,7 +92,7 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-             />
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/et_signin_password"
@@ -112,26 +111,25 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-            />
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/btn_signin"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="60dp"
+            android:layout_marginEnd="50dp"
             android:layout_weight="0.32"
             android:background="@drawable/button_backgorund"
-
             android:gravity="center"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingBottom="2dp"
             android:text="@string/sign_up"
-            android:layout_marginEnd="50dp"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:paddingBottom="2dp"
-            />
+            android:textSize="16sp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -139,9 +137,7 @@
             android:layout_marginTop="50dp"
             android:layout_weight="0.3"
             android:orientation="horizontal"
-            android:weightSum="4"
-
-            >
+            android:weightSum="4">
 
             <TextView
                 android:layout_width="0dp"
@@ -150,13 +146,14 @@
                 android:fontFamily="@font/pacifico"
                 android:gravity="end"
                 android:paddingStart="2dp"
-                android:paddingEnd="0dp"
                 android:paddingTop="2dp"
+                android:paddingEnd="0dp"
                 android:paddingBottom="2dp"
                 android:text="@string/already_have_an_account"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:ignore="NestedWeights" />
+
 
             <TextView
                 android:id="@+id/text_to_login"

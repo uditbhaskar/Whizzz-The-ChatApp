@@ -20,7 +20,26 @@ public class FirebaseInstanceDatabase {
     private FirebaseDatabase instance = FirebaseDatabase.getInstance();
     private FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
 
-    public MutableLiveData<DataSnapshot> fetchUserData(){
+
+    public MutableLiveData<DataSnapshot> fetchAllUserNames(){
+        final MutableLiveData<DataSnapshot> fetchAllUSerName = new MutableLiveData<>();
+
+        instance.getReference("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fetchAllUSerName.setValue(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return fetchAllUSerName;
+    }
+
+    public MutableLiveData<DataSnapshot> fetchUserDataCurrent(){
         final MutableLiveData<DataSnapshot> fetchCurrentUserData = new MutableLiveData<>();
 
         instance.getReference("Users").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -38,6 +57,8 @@ public class FirebaseInstanceDatabase {
 
         return fetchCurrentUserData;
     }
+
+
 
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {
         final MutableLiveData<Boolean> successAddUserDb = new MutableLiveData<>();
