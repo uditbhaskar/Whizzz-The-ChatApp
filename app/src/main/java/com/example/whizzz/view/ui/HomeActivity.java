@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void fetchCurrentUserdata() {
-        databaseViewModel.fetchingUserData();
+        databaseViewModel.fetchingUserDataCurrent();
         databaseViewModel.fetchUserCurrentData.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {

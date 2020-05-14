@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,11 +22,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="0dp"
+            android:layout_marginEnd="50dp"
             android:layout_weight="2.512"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/back_ground"
-            android:layout_marginEnd="50dp"/>
+            app:lottie_rawRes="@raw/back_ground" />
 
         <TextView
             android:layout_width="match_parent"
@@ -65,14 +64,13 @@
             android:background="@drawable/background_email_password"
             android:drawableStart="@drawable/ic_mail_outline"
             android:drawablePadding="30dp"
-
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-             />
+            android:autofillHints="" />
 
         <EditText
             android:id="@+id/et_login_password"
@@ -91,23 +89,23 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-            />
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="55dp"
-            android:layout_weight="0.25"
+            android:layout_marginEnd="50dp"
+            android:layout_weight="0.28"
             android:background="@drawable/button_backgorund"
-
             android:gravity="center"
+            android:paddingBottom="2dp"
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:paddingBottom="2dp"
-            android:layout_marginEnd="50dp"/>
+            android:textSize="16sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="25dp"
@@ -125,8 +123,8 @@
                 android:fontFamily="@font/pacifico"
                 android:gravity="end"
                 android:paddingStart="2dp"
-                android:paddingEnd="0dp"
                 android:paddingTop="2dp"
+                android:paddingEnd="0dp"
                 android:paddingBottom="2dp"
                 android:text="@string/don_t_have_an_account"
                 android:textColor="@color/white"
