@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +44,7 @@ public class SignupActivity extends AppCompatActivity {
     String imageUrl;
     String timeStamp;
     FirebaseUser currentUser;
+    FrameLayout progressBarSignInFrame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class SignupActivity extends AppCompatActivity {
                 et_emailIdSignIn.clearFocus();
                 et_pwdSignIn.clearFocus();
                 v.startAnimation(buttonClick);
+                progressBarSignInFrame.setVisibility(View.VISIBLE);
 
                 emailId = et_emailIdSignIn.getText().toString();
                 pwd = et_pwdSignIn.getText().toString();
@@ -79,6 +83,7 @@ public class SignupActivity extends AppCompatActivity {
                     et_pwdSignIn.setError("Please set your password.");
                     et_pwdSignIn.requestFocus();
                 } else {
+                    dismissKeyboard();
                     signInUsers();
                 }
             }
@@ -101,6 +106,12 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onChanged(Task task) {
                 if (!task.isSuccessful()) {
+                    progressBarSignInFrame.setVisibility(View.GONE);
+                    et_emailIdSignIn.setText("");
+                    et_pwdSignIn.setText("");
+                    et_usernameSignIn.setText("");
+                    et_usernameSignIn.requestFocus();
+                    
                     try {
                         throw Objects.requireNonNull(task.getException());
                     } catch (FirebaseAuthUserCollisionException existEmail) {
@@ -119,7 +130,6 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                     startActivity(intent);
-
                     finish();
                 }
             }
@@ -131,29 +141,37 @@ public class SignupActivity extends AppCompatActivity {
         long tsLong = System.currentTimeMillis();
         timeStamp = Long.toString(tsLong);
         imageUrl = "default";
-        userId=currentUser.getUid();
+        userId = currentUser.getUid();
         databaseViewModel.addUserDatabase(userId, userName, email, timeStamp, imageUrl);
         databaseViewModel.successAddUserDb.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean)
-                    Toast.makeText(context,"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
                 else {
                     Toast.makeText(context, "ERROR WHILE ADDING DATA IN DATABASE.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    public void getUserSession(){
+
+    public void getUserSession() {
         signInViewModel.getUserFirebaseSession();
         signInViewModel.userFirebaseSession.observe(this, new Observer<FirebaseUser>() {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
-                currentUser=firebaseUser;
+                currentUser = firebaseUser;
             }
         });
 
     }
+
+    public void dismissKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+    }
+
 
     private void init() {
         et_usernameSignIn = findViewById(R.id.et_signin_username);
@@ -168,5 +186,6 @@ public class SignupActivity extends AppCompatActivity {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
                 .get(DatabaseViewModel.class);
+        progressBarSignInFrame = findViewById(R.id.frame_layout_singin);
     }
 }

@@ -1,11 +1,14 @@
 package com.example.whizzz.view.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     String pwdLog;
     TextView textToSignUp;
     FirebaseUser currentUser;
+    FrameLayout frameLayoutLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 et_emailIdLogIn.clearFocus();
                 et_pwdLogIn.clearFocus();
                 v.startAnimation(buttonClick);
-
+                dismissKeyboard();
                 emailLog = et_emailIdLogIn.getText().toString();
                 pwdLog = et_pwdLogIn.getText().toString();
 
@@ -82,7 +86,10 @@ public class LoginActivity extends AppCompatActivity {
                     et_pwdLogIn.setError("Please enter your password.");
                     et_pwdLogIn.requestFocus();
                 } else {
+                    frameLayoutLogin.setVisibility(View.VISIBLE);
+
                     logInUser();
+
                 }
 
             }
@@ -107,6 +114,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(Task task) {
                 if (!task.isSuccessful()) {
+                    frameLayoutLogin.setVisibility(View.GONE);
+                    et_emailIdLogIn.setText("");
+                    et_pwdLogIn.setText("");
+                    et_emailIdLogIn.requestFocus();
                     try {
                         throw Objects.requireNonNull(task.getException());
                     } catch (FirebaseAuthInvalidUserException invalidEmail) {
@@ -118,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 } else {
-                    Toast.makeText(LoginActivity.this, "Welcome back!", Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
@@ -126,6 +137,12 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void dismissKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert imm != null;
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
 
 
@@ -137,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
                 .get(LogInViewModel.class);
+        frameLayoutLogin = findViewById(R.id.frame_layout_login);
 
     }
 }
