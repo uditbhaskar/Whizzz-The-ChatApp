@@ -1,6 +1,7 @@
 package com.example.whizzz.view.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.whizzz.R;
 import com.example.whizzz.services.model.Users;
+import com.example.whizzz.view.ui.MessageActivity;
 
 import java.util.ArrayList;
 
@@ -50,6 +52,16 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
         }
 
         holder.tv_name.setText(userName);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MessageActivity.class);
+                intent.putExtra("userid", users.getId());
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 

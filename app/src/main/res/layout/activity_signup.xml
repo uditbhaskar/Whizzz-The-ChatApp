@@ -60,10 +60,10 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="50dp"
             android:layout_weight="0.35"
-            android:background="@drawable/background_email_password"
+            android:background="@drawable/background_edit_text"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_ 1234567890"
             android:drawableStart="@drawable/ic_username"
-
+            android:textCursorDrawable="@color/white"
             android:drawablePadding="30dp"
             android:hint="@string/username"
             android:inputType="text"
@@ -71,7 +71,6 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-
             android:autofillHints="" />
 
         <EditText
@@ -82,10 +81,10 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="50dp"
             android:layout_weight="0.35"
-            android:background="@drawable/background_email_password"
+            android:background="@drawable/background_edit_text"
             android:drawableStart="@drawable/ic_mail_outline"
             android:drawablePadding="30dp"
-
+            android:textCursorDrawable="@color/white"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingStart="10dp"
@@ -101,10 +100,10 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="50dp"
             android:layout_weight="0.35"
-            android:background="@drawable/background_email_password"
+            android:background="@drawable/background_edit_text"
             android:drawableStart="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="30dp"
-
+            android:textCursorDrawable="@color/white"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:paddingStart="10dp"

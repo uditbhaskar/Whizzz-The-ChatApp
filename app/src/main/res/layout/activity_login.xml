@@ -61,7 +61,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="50dp"
             android:layout_weight="0.35"
-            android:background="@drawable/background_email_password"
+            android:background="@drawable/background_edit_text"
             android:drawableStart="@drawable/ic_mail_outline"
             android:drawablePadding="30dp"
             android:hint="@string/email"
@@ -70,7 +70,8 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:textCursorDrawable="@color/white"/>
 
         <EditText
             android:id="@+id/et_login_password"
@@ -79,7 +80,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="50dp"
             android:layout_weight="0.35"
-            android:background="@drawable/background_email_password"
+            android:background="@drawable/background_edit_text"
             android:drawableStart="@drawable/ic_lock_outline_black_24dp"
             android:drawablePadding="30dp"
 
@@ -89,7 +90,8 @@
             android:paddingEnd="10dp"
             android:textColor="@color/white"
             android:textColorHint="#A9A8BC"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:textCursorDrawable="@color/white"/>
 
         <Button
             android:id="@+id/btn_login"
