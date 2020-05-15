@@ -1,6 +1,7 @@
 package com.example.whizzz.services.repository;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +39,26 @@ public class FirebaseInstanceDatabase {
 
         return fetchAllUSerName;
     }
+
+    public MutableLiveData<DataSnapshot> fetchSelectedUserIdData(String userId){
+        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData =new MediatorLiveData<>();
+
+        instance.getReference("Users").child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fetchSelectedUserIDData.setValue(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return fetchSelectedUserIDData;
+    }
+
+
+
 
     public MutableLiveData<DataSnapshot> fetchUserDataCurrent(){
         final MutableLiveData<DataSnapshot> fetchCurrentUserData = new MutableLiveData<>();

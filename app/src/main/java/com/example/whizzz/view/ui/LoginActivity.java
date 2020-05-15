@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                 currentUser = firebaseUser;
                 if (currentUser != null) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                 }
@@ -66,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                et_emailIdLogIn.clearFocus();
+                et_pwdLogIn.clearFocus();
                 v.startAnimation(buttonClick);
 
                 emailLog = et_emailIdLogIn.getText().toString();

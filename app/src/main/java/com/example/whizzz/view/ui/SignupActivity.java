@@ -58,6 +58,9 @@ public class SignupActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                et_usernameSignIn.clearFocus();
+                et_emailIdSignIn.clearFocus();
+                et_pwdSignIn.clearFocus();
                 v.startAnimation(buttonClick);
 
                 emailId = et_emailIdSignIn.getText().toString();

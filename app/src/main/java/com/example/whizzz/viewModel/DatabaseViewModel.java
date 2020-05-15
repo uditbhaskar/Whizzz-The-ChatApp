@@ -11,6 +11,7 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<Boolean> successAddUserDb;
     public LiveData<DataSnapshot> fetchUserCurrentData;
     public LiveData<DataSnapshot> fetchUserNames;
+    public LiveData<DataSnapshot> fetchSelectedProfileUserData;
 
     public DatabaseViewModel() {
         instance = new FirebaseInstanceDatabase();
@@ -26,6 +27,10 @@ public class DatabaseViewModel extends ViewModel {
 
     public void fetchUserNameAll(){
         fetchUserNames = instance.fetchAllUserNames();
+    }
+
+    public void fetchSelectedUserProfileData(String userId){
+        fetchSelectedProfileUserData = instance.fetchSelectedUserIdData(userId);
     }
 
 }

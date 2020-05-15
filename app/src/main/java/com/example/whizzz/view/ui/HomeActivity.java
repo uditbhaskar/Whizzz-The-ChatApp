@@ -69,7 +69,6 @@ public class HomeActivity extends AppCompatActivity {
 
         tabLayout.setupWithViewPager(viewPager);
 
-
     }
 
     private void fetchCurrentUserdata() {
