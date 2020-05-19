@@ -19,10 +19,10 @@ import java.util.HashMap;
 
 public class FirebaseInstanceDatabase {
     private FirebaseDatabase instance = FirebaseDatabase.getInstance();
-    private FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-    public MutableLiveData<DataSnapshot> fetchAllUserNames(){
+    public MutableLiveData<DataSnapshot> fetchAllUserNames() {
         final MutableLiveData<DataSnapshot> fetchAllUSerName = new MutableLiveData<>();
 
         instance.getReference("Users").addValueEventListener(new ValueEventListener() {
@@ -40,8 +40,9 @@ public class FirebaseInstanceDatabase {
         return fetchAllUSerName;
     }
 
-    public MutableLiveData<DataSnapshot> fetchSelectedUserIdData(String userId){
-        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData =new MediatorLiveData<>();
+
+    public MutableLiveData<DataSnapshot> fetchSelectedUserIdData(String userId) {
+        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MediatorLiveData<>();
 
         instance.getReference("Users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,9 +59,7 @@ public class FirebaseInstanceDatabase {
     }
 
 
-
-
-    public MutableLiveData<DataSnapshot> fetchUserDataCurrent(){
+    public MutableLiveData<DataSnapshot> fetchUserDataCurrent() {
         final MutableLiveData<DataSnapshot> fetchCurrentUserData = new MutableLiveData<>();
 
         instance.getReference("Users").child(firebaseUser.getUid()).addValueEventListener(new ValueEventListener() {
@@ -79,7 +78,29 @@ public class FirebaseInstanceDatabase {
         return fetchCurrentUserData;
     }
 
+    public MutableLiveData<Boolean> addChatsInDatabase(String receiverId, String senderId, String message, String timestamp) {
+        final MutableLiveData<Boolean> successAddChatsDb = new MediatorLiveData<>();
 
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("receiverId", receiverId);
+        hashMap.put("senderId", senderId);
+        hashMap.put("messages", message);
+        hashMap.put("timestamp", timestamp);
+
+        instance.getReference("Chats").push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successAddChatsDb.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddChatsDb.setValue(false);
+            }
+        });
+
+        return successAddChatsDb;
+    }
 
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {
         final MutableLiveData<Boolean> successAddUserDb = new MutableLiveData<>();

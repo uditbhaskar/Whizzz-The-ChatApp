@@ -87,9 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     et_pwdLogIn.requestFocus();
                 } else {
                     frameLayoutLogin.setVisibility(View.VISIBLE);
-
                     logInUser();
-
                 }
 
             }

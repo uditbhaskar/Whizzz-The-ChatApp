@@ -24,7 +24,6 @@ public class FirebaseSignUpInstance {
                 firebaseUser = mAuth.getCurrentUser();
                 firebaseUsers.setValue(firebaseUser);
                 taskSignIn.setValue(value);
-
             }
         });
 
