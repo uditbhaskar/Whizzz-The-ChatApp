@@ -21,37 +21,87 @@
                 android:id="@+id/iv_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_back_black_24dp"
-                android:tint="@android:color/white"
-                android:padding="16dp"
-                android:foreground="?selectableItemBackground"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:foreground="?selectableItemBackground"
+                android:padding="16dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@android:color/white" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_user_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="7dp"
                 android:layout_toEndOf="@+id/iv_back_button"
-                android:textSize="18sp"
-                android:layout_centerVertical="true"
-                android:src="@color/white"/>
+                android:src="@color/white"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_profile_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="7dp"
-                android:padding="2dp"
-                android:text="@string/user"
-                android:textColor="#fff"
-                android:textStyle="bold"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/iv_user_image"/>
+                android:layout_marginStart="7dp"
+                android:layout_toEndOf="@+id/iv_user_image"
+                android:padding="2dp"
+                android:textColor="#fff"
+                android:textStyle="bold" />
         </RelativeLayout>
 
-
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_messages_record"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/send_relative_layout"
+        android:layout_below="@id/toolbar">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/send_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="3dp"
+        android:background="@drawable/send_message_et_background">
+
+
+        <EditText
+            android:id="@+id/et_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_toStartOf="@+id/iv_send_button"
+            android:background="@drawable/send_message_et_background"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:hint="@string/type_your_messages_here"
+            android:padding="6dp"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:textColorHint="#AAA1A1"
+            android:textCursorDrawable="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_send_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="2dp"
+            android:padding="4dp"
+            android:src="@drawable/ic_send_black_24dp" />
+
+
+    </RelativeLayout>
 
 </RelativeLayout>
