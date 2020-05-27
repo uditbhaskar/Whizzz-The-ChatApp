@@ -65,10 +65,10 @@
         android:id="@+id/send_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="3dp"
-        android:background="@drawable/send_message_et_background">
+        android:layout_margin="2dp"
+        android:background="@drawable/send_message_et_background"
+        android:padding="5dp">
 
 
         <EditText
@@ -85,10 +85,10 @@
             android:focusable="true"
             android:hint="@string/type_your_messages_here"
             android:padding="6dp"
-            android:textSize="18sp"
             android:textColor="@color/white"
             android:textColorHint="#AAA1A1"
-            android:textCursorDrawable="@color/white" />
+            android:textCursorDrawable="@color/white"
+            android:textSize="18sp" />
 
         <ImageView
             android:id="@+id/iv_send_button"

@@ -111,7 +111,7 @@ public class SignupActivity extends AppCompatActivity {
                     et_pwdSignIn.setText("");
                     et_usernameSignIn.setText("");
                     et_usernameSignIn.requestFocus();
-                    
+
                     try {
                         throw Objects.requireNonNull(task.getException());
                     } catch (FirebaseAuthUserCollisionException existEmail) {
@@ -186,6 +186,6 @@ public class SignupActivity extends AppCompatActivity {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
                 .get(DatabaseViewModel.class);
-        progressBarSignInFrame = findViewById(R.id.frame_layout_singin);
+      progressBarSignInFrame = findViewById(R.id.progress_bar_signIn);
     }
 }

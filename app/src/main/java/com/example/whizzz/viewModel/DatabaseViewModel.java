@@ -13,6 +13,7 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<DataSnapshot> fetchUserNames;
     public LiveData<DataSnapshot> fetchSelectedProfileUserData;
     public LiveData<Boolean> successAddChatDb;
+    public LiveData<DataSnapshot> fetchedChat;
 
     public DatabaseViewModel() {
         instance = new FirebaseInstanceDatabase();
@@ -34,8 +35,11 @@ public class DatabaseViewModel extends ViewModel {
         fetchSelectedProfileUserData = instance.fetchSelectedUserIdData(userId);
     }
 
-    public void addChatDb(String receiverId, String senderId, String message, String timestamp){
-        successAddChatDb= instance.addChatsInDatabase(receiverId, senderId, message, timestamp);
+    public void addChatDb(String senderId, String receiverId, String message, String timestamp){
+        successAddChatDb= instance.addChatsInDatabase(senderId, receiverId, message, timestamp);
     }
 
+    public void fetchChatUser(){
+        fetchedChat = instance.fetchChatUser();
+    }
 }
