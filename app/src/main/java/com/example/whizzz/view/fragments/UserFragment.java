@@ -67,6 +67,7 @@ public class UserFragment extends Fragment {
                     assert user != null;
                     if (!currentUserId.equals(user.getId())) {
                         mUSer.add(user);
+
                     }
                     userFragmentAdapter = new UserFragmentAdapter(mUSer, context);
                     recyclerView.setAdapter(userFragmentAdapter);

@@ -22,4 +22,5 @@
     <string name="user">User</string>
     <string name="messages_here">Messages here!</string>
     <string name="type_your_messages_here">Type a message</string>
+    <string name="a_sample_message">A sample message</string>
 </resources>

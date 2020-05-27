@@ -25,7 +25,7 @@ public class FirebaseInstanceDatabase {
     public MutableLiveData<DataSnapshot> fetchAllUserNames() {
         final MutableLiveData<DataSnapshot> fetchAllUSerName = new MutableLiveData<>();
 
-        instance.getReference("Users").addValueEventListener(new ValueEventListener() {
+        instance.getReference("Users").orderByChild("username").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 fetchAllUSerName.setValue(dataSnapshot);
@@ -78,13 +78,29 @@ public class FirebaseInstanceDatabase {
         return fetchCurrentUserData;
     }
 
-    public MutableLiveData<Boolean> addChatsInDatabase(String receiverId, String senderId, String message, String timestamp) {
+    public MutableLiveData<DataSnapshot> fetchChatUser(){
+        final MutableLiveData<DataSnapshot> fetchUserChat = new MutableLiveData<>();
+        instance.getReference("Chats").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fetchUserChat.setValue(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return fetchUserChat;
+    }
+
+    public MutableLiveData<Boolean> addChatsInDatabase(String senderId, String receiverId, String message, String timestamp) {
         final MutableLiveData<Boolean> successAddChatsDb = new MediatorLiveData<>();
 
         HashMap<String, String> hashMap = new HashMap<>();
-        hashMap.put("receiverId", receiverId);
         hashMap.put("senderId", senderId);
-        hashMap.put("messages", message);
+        hashMap.put("receiverId", receiverId);
+        hashMap.put("message", message);
         hashMap.put("timestamp", timestamp);
 
         instance.getReference("Chats").push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {

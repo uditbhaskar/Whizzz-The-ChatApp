@@ -11,7 +11,8 @@
         android:id="@+id/frame_layout_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:clickable="false">
 
         <ProgressBar
             android:id="@+id/progress_bar_logIn"
@@ -26,151 +27,148 @@
 
     </FrameLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:orientation="vertical"
-        android:weightSum="7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="2.512"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/back_ground" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.7"
-            android:fontFamily="@font/pacifico"
-            android:gravity="center_vertical"
-            android:paddingStart="4dp"
-            android:paddingEnd="1dp"
-            android:text="@string/hi_there"
-            android:textColor="@color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:fontFamily="@font/pacifico"
-            android:paddingStart="6dp"
-            android:paddingTop="2dp"
-            android:paddingEnd="2dp"
-            android:paddingBottom="2dp"
-            android:text="@string/log_in_to_continue"
-            android:textColor="@color/white" />
-
-        <EditText
-
-            android:id="@+id/et_login_email"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="0.35"
-            android:autofillHints=""
-            android:background="@drawable/background_edit_text"
-            android:drawableStart="@drawable/ic_mail_outline"
-            android:drawablePadding="30dp"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="#A9A8BC"
-            android:textCursorDrawable="@color/white" />
-
-        <EditText
-            android:id="@+id/et_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="0.35"
-            android:autofillHints=""
-            android:background="@drawable/background_edit_text"
-            android:drawableStart="@drawable/ic_lock_outline_black_24dp"
-
-            android:drawablePadding="30dp"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/white"
-            android:textColorHint="#A9A8BC"
-            android:textCursorDrawable="@color/white" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="55dp"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="0.28"
-            android:background="@drawable/button_background"
-            android:gravity="center"
-            android:paddingBottom="2dp"
-            android:text="@string/login"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="50dp"
-            android:layout_weight="0.3"
-            android:orientation="horizontal"
-            android:weightSum="4"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            >
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="50dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/back_ground" />
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2.3"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
                 android:fontFamily="@font/pacifico"
-                android:gravity="end"
-                android:paddingStart="2dp"
-                android:paddingTop="2dp"
-                android:paddingEnd="0dp"
-                android:paddingBottom="2dp"
-                android:text="@string/don_t_have_an_account"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="1dp"
+                android:text="@string/hi_there"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                tools:ignore="NestedWeights" />
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_to_signUp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1.7"
-                android:clickable="true"
-                android:focusable="true"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
                 android:fontFamily="@font/pacifico"
-                android:gravity="start"
-                android:paddingStart="0dp"
+                android:paddingStart="6dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="2dp"
                 android:paddingBottom="2dp"
-                android:text="@string/register"
-                android:textColor="#63FF90"
-                android:textSize="18sp" />
+                android:text="@string/log_in_to_continue"
+                android:textColor="@color/white" />
 
+            <EditText
+
+                android:id="@+id/et_login_email"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:autofillHints=""
+                android:textSize="18sp"
+                android:background="@drawable/background_edit_text"
+                android:drawableStart="@drawable/ic_mail_outline"
+                android:drawablePadding="30dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/white"
+                android:textColorHint="#A9A8BC"
+                android:textCursorDrawable="@color/white" />
+
+            <EditText
+                android:id="@+id/et_login_password"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="50dp"
+                android:autofillHints=""
+                android:background="@drawable/background_edit_text"
+                android:drawableStart="@drawable/ic_lock_outline_black_24dp"
+                android:drawablePadding="30dp"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:textColorHint="#A9A8BC"
+                android:textCursorDrawable="@color/white" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="50dp"
+                android:background="@drawable/button_background"
+                android:gravity="center"
+                android:paddingBottom="2dp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.3"
+                    android:fontFamily="@font/pacifico"
+                    android:gravity="end"
+                    android:paddingStart="2dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/don_t_have_an_account"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    tools:ignore="NestedWeights" />
+
+                <TextView
+                    android:id="@+id/text_to_signUp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/pacifico"
+                    android:gravity="start"
+                    android:paddingStart="0dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="@string/register"
+                    android:textColor="#63FF90"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
