@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView textToSignUp;
     FirebaseUser currentUser;
     FrameLayout frameLayoutLogin;
+    ScrollView scrollViewLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,11 @@ public class LoginActivity extends AppCompatActivity {
                     et_pwdLogIn.setError("Please enter your password.");
                     et_pwdLogIn.requestFocus();
                 } else {
+                    scrollViewLogin.setClickable(false);
+                    et_emailIdLogIn.setClickable(false);
+                    et_pwdLogIn.setClickable(false);
+                    et_emailIdLogIn.setClickable(false);
+                    textToSignUp.setClickable(false);
                     frameLayoutLogin.setVisibility(View.VISIBLE);
                     logInUser();
                 }
@@ -113,6 +120,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onChanged(Task task) {
                 if (!task.isSuccessful()) {
                     frameLayoutLogin.setVisibility(View.GONE);
+                    scrollViewLogin.setClickable(true);
+                    et_emailIdLogIn.setClickable(true);
+                    et_pwdLogIn.setClickable(true);
+                    et_emailIdLogIn.setClickable(true);
+                    textToSignUp.setClickable(true);
+
                     et_emailIdLogIn.setText("");
                     et_pwdLogIn.setText("");
                     et_emailIdLogIn.requestFocus();
@@ -153,6 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                 .getInstance(getApplication()))
                 .get(LogInViewModel.class);
         frameLayoutLogin = findViewById(R.id.frame_layout_login);
+        scrollViewLogin  = findViewById(R.id.scrollViewSignIn);
 
     }
 }

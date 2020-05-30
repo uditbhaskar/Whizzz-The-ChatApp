@@ -11,19 +11,14 @@
         android:id="@+id/progress_bar_signIn"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.4"
-        android:animateLayoutChanges="true"
-        android:background="@android:color/white"
         android:clickable="false"
         android:visibility="gone">
 
         <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:foregroundGravity="center"
-            android:indeterminate="true"
             android:indeterminateTint="#fff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,10 +71,10 @@
                 android:paddingStart="6dp"
                 android:paddingTop="2dp"
                 android:paddingEnd="2dp"
-                android:textSize="15sp"
                 android:paddingBottom="2dp"
                 android:text="@string/sign_up_here"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="15sp" />
 
             <EditText
 

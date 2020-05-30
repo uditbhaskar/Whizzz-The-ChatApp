@@ -65,7 +65,6 @@ public class SignupActivity extends AppCompatActivity {
                 et_emailIdSignIn.clearFocus();
                 et_pwdSignIn.clearFocus();
                 v.startAnimation(buttonClick);
-                progressBarSignInFrame.setVisibility(View.VISIBLE);
 
                 emailId = et_emailIdSignIn.getText().toString();
                 pwd = et_pwdSignIn.getText().toString();
@@ -83,6 +82,11 @@ public class SignupActivity extends AppCompatActivity {
                     et_pwdSignIn.setError("Please set your password.");
                     et_pwdSignIn.requestFocus();
                 } else {
+                    progressBarSignInFrame.setVisibility(View.VISIBLE);
+                    et_usernameSignIn.setClickable(false);
+                    et_emailIdSignIn.setClickable(false);
+                    et_pwdSignIn.setClickable(false);
+                    textToLogin.setClickable(false);
                     dismissKeyboard();
                     signInUsers();
                 }
@@ -106,6 +110,11 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onChanged(Task task) {
                 if (!task.isSuccessful()) {
+                    et_usernameSignIn.setClickable(true);
+                    et_emailIdSignIn.setClickable(true);
+                    et_pwdSignIn.setClickable(true);
+                    textToLogin.setClickable(true);
+
                     progressBarSignInFrame.setVisibility(View.GONE);
                     et_emailIdSignIn.setText("");
                     et_pwdSignIn.setText("");
@@ -127,7 +136,6 @@ public class SignupActivity extends AppCompatActivity {
                 } else {
                     getUserSession();
                     addUserInDatabase(userName, emailId, userId);
-                    Toast.makeText(SignupActivity.this, "SignUp successful.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                     startActivity(intent);
                     finish();
