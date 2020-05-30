@@ -23,11 +23,11 @@ import java.util.Objects;
 
 public class UserFragment extends Fragment {
     private Context context;
-    DatabaseViewModel databaseViewModel;
-    ArrayList<Users> mUSer;
-    String currentUserId;
-    RecyclerView recyclerView;
-    UserFragmentAdapter userFragmentAdapter;
+    private DatabaseViewModel databaseViewModel;
+    private ArrayList<Users> mUSer;
+    private String currentUserId;
+    private RecyclerView recyclerView;
+    private UserFragmentAdapter userFragmentAdapter;
 
     public UserFragment(Context context) {
         this.context = context;
