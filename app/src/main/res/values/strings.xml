@@ -25,4 +25,5 @@
     <string name="a_sample_message">A sample message</string>
     <string name="profile">Profile</string>
     <string name="s">username</string>
+    <string name="todo">TODO</string>
 </resources>
