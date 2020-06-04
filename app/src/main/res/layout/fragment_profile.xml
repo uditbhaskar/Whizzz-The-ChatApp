@@ -1,16 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.fragments.ChatFragment">
 
-
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Profile"
-        android:autoSizeTextType="uniform"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:elevation="20dp">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/profile_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/profile"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="103dp"
+                android:layout_height="104dp"
+                android:layout_below="@id/profile_text"
+                android:layout_centerInParent="true"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_fragment"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@color/grey" />
+
+                <ImageView
+                    android:id="@+id/btn_profile_image"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/camera_icon_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foregroundGravity="center"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_baseline_camera_alt_24" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tv_profile_fragment_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                android:padding="2dp"
+                android:text="@string/s"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

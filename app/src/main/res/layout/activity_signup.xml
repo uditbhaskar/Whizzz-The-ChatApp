@@ -50,7 +50,7 @@
                 android:layout_marginEnd="50dp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/welcome_page_animation" />
+                app:lottie_rawRes="@raw/signin_page_animation" />
 
             <TextView
                 android:layout_width="match_parent"

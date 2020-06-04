@@ -23,6 +23,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone"
+
         >
 
         <androidx.appcompat.widget.Toolbar
@@ -33,8 +34,11 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"/>
 
             <TextView
                 android:id="@+id/tv_username"

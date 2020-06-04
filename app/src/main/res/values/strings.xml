@@ -23,4 +23,6 @@
     <string name="messages_here">Messages here!</string>
     <string name="type_your_messages_here">Type a message</string>
     <string name="a_sample_message">A sample message</string>
+    <string name="profile">Profile</string>
+    <string name="s">username</string>
 </resources>
