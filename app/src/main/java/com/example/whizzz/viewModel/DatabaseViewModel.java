@@ -1,10 +1,14 @@
 package com.example.whizzz.viewModel;
 
+import android.content.Context;
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.whizzz.services.repository.FirebaseInstanceDatabase;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.storage.StorageReference;
 
 public class DatabaseViewModel extends ViewModel {
     private FirebaseInstanceDatabase instance;
@@ -14,6 +18,9 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<DataSnapshot> fetchSelectedProfileUserData;
     public LiveData<Boolean> successAddChatDb;
     public LiveData<DataSnapshot> fetchedChat;
+    public  LiveData<StorageReference> imageFileReference;
+    public LiveData<Boolean> successAddImageUrlInDatabase;
+
 
     public DatabaseViewModel() {
         instance = new FirebaseInstanceDatabase();
@@ -42,4 +49,14 @@ public class DatabaseViewModel extends ViewModel {
     public void fetchChatUser(){
         fetchedChat = instance.fetchChatUser();
     }
+
+    public void fetchImageFileReference(String timeStamp, Uri imageUri, Context context){
+        imageFileReference = instance.fetchFileReference(timeStamp, imageUri, context);
+    }
+
+    public void addImageUrlInDatabase(String imageUrl,Object mUri){
+        successAddImageUrlInDatabase = instance.addImageUrlInDatabase(imageUrl,mUri);
+    }
+
+
 }

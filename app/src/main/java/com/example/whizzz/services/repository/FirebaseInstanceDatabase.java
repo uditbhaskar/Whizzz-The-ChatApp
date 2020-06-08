@@ -1,7 +1,11 @@
 package com.example.whizzz.services.repository;
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -11,15 +15,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class FirebaseInstanceDatabase {
     private FirebaseDatabase instance = FirebaseDatabase.getInstance();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(Objects.requireNonNull(firebaseUser).getUid());
+
 
 
     public MutableLiveData<DataSnapshot> fetchAllUserNames() {
@@ -41,8 +51,22 @@ public class FirebaseInstanceDatabase {
     }
 
 
+    private String getFileExtension(Uri uri, Context context) {
+        ContentResolver contentResolver = Objects.requireNonNull(context).getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getMimeTypeFromExtension(contentResolver.getType(uri));
+    }
+
+
+    public MutableLiveData<StorageReference> fetchFileReference(String timeStamp, Uri imageUri, Context context) {
+        final MutableLiveData<StorageReference> fetchFileReferenceImage = new MutableLiveData<>();
+        final StorageReference fileReference = storageReference.child(timeStamp+"."+getFileExtension(imageUri, context));
+        fetchFileReferenceImage.setValue(fileReference);
+        return fetchFileReferenceImage;
+    }
+
     public MutableLiveData<DataSnapshot> fetchSelectedUserIdData(String userId) {
-        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MediatorLiveData<>();
+        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MutableLiveData<>();
 
         instance.getReference("Users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -78,7 +102,7 @@ public class FirebaseInstanceDatabase {
         return fetchCurrentUserData;
     }
 
-    public MutableLiveData<DataSnapshot> fetchChatUser(){
+    public MutableLiveData<DataSnapshot> fetchChatUser() {
         final MutableLiveData<DataSnapshot> fetchUserChat = new MutableLiveData<>();
         instance.getReference("Chats").addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,7 +119,7 @@ public class FirebaseInstanceDatabase {
     }
 
     public MutableLiveData<Boolean> addChatsInDatabase(String senderId, String receiverId, String message, String timestamp) {
-        final MutableLiveData<Boolean> successAddChatsDb = new MediatorLiveData<>();
+        final MutableLiveData<Boolean> successAddChatsDb = new MutableLiveData<>();
 
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("senderId", senderId);
@@ -116,6 +140,28 @@ public class FirebaseInstanceDatabase {
         });
 
         return successAddChatsDb;
+    }
+
+
+    public MutableLiveData<Boolean> addImageUrlInDatabase(String imageUrl,Object mUri){
+        final MutableLiveData<Boolean> successAddUriImage = new MutableLiveData<>();
+
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(imageUrl, mUri);
+        reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successAddUriImage.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddUriImage.setValue(false);
+            }
+        });
+
+
+        return successAddUriImage;
     }
 
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {

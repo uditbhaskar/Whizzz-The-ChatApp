@@ -194,6 +194,6 @@ public class SignupActivity extends AppCompatActivity {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(getApplication()))
                 .get(DatabaseViewModel.class);
-      progressBarSignInFrame = findViewById(R.id.progress_bar_signIn);
+        progressBarSignInFrame = findViewById(R.id.progress_bar_signIn);
     }
 }
