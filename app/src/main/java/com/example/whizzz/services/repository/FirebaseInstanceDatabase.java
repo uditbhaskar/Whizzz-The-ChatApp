@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +29,7 @@ public class FirebaseInstanceDatabase {
     private FirebaseDatabase instance = FirebaseDatabase.getInstance();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
-    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(Objects.requireNonNull(firebaseUser).getUid());
+
 
 
 
@@ -66,7 +67,7 @@ public class FirebaseInstanceDatabase {
     }
 
     public MutableLiveData<DataSnapshot> fetchSelectedUserIdData(String userId) {
-        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MutableLiveData<>();
+        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MediatorLiveData<>();
 
         instance.getReference("Users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -145,7 +146,7 @@ public class FirebaseInstanceDatabase {
 
     public MutableLiveData<Boolean> addImageUrlInDatabase(String imageUrl,Object mUri){
         final MutableLiveData<Boolean> successAddUriImage = new MutableLiveData<>();
-
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         HashMap<String,Object> map = new HashMap<>();
         map.put(imageUrl, mUri);
         reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
