@@ -2,10 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
-    android:elevation="5dp"
+    android:layout_marginTop="1dp"
     android:foreground="?selectableItemBackground">
 
     <LinearLayout
@@ -15,6 +12,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
+
             android:id="@+id/profile_image"
             android:layout_width="0dp"
             android:layout_height="match_parent"

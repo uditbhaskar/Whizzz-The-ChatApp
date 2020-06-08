@@ -143,7 +143,6 @@ public class HomeActivity extends AppCompatActivity {
         profileImage = findViewById(R.id.iv_profile_image);
         linearLayout = findViewById(R.id.linearLayout);
         progressBar = findViewById(R.id.progress_bar);
-
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
 

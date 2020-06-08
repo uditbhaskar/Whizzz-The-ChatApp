@@ -9,10 +9,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LogInViewModel extends ViewModel {
+
     private FirebaseLoginInstance loginInstance;
     public LiveData<Task> logInUser;
     public LiveData<FirebaseUser> firebaseUserLoginStatus;
     public LiveData<FirebaseAuth> firebaseAuthLiveData;
+
 
     public LogInViewModel() {
         loginInstance = new FirebaseLoginInstance();
@@ -22,10 +24,11 @@ public class LogInViewModel extends ViewModel {
         logInUser = loginInstance.loginUser(emailLogIn, pwdLogIn);
     }
 
-    public void getFirebaseUserLogInStatus(){
-        firebaseUserLoginStatus= loginInstance.getFirebaseUserLoginStatus();
+    public void getFirebaseUserLogInStatus() {
+        firebaseUserLoginStatus = loginInstance.getFirebaseUserLoginStatus();
     }
-    public void getFirebaseAuth(){
+
+    public void getFirebaseAuth() {
         firebaseAuthLiveData = loginInstance.getFirebaseAuth();
     }
 
