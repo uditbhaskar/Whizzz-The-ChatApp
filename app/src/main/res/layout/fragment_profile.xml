@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.fragments.ChatFragment">
 
     <androidx.cardview.widget.CardView
@@ -39,6 +39,8 @@
                     android:id="@+id/iv_profile_fragment"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:src="@color/grey" />
 
                 <ImageView
@@ -59,17 +61,84 @@
 
 
             <TextView
-                android:id="@+id/tv_profile_fragment_username"
+                android:id="@+id/tv_name_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relativeLayout"
-                android:layout_centerHorizontal="true"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:padding="2dp"
+                android:text="@string/name"
+                android:textSize="12sp">
+
+            </TextView>
+
+            <EditText
+                android:id="@+id/tv_profile_fragment_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name_heading"
+                android:layout_marginStart="15dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="2dp"
+                android:gravity="top"
                 android:text="@string/s"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/btn_save_edit_username"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tv_name_heading"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:src="@drawable/ic_baseline_edit_24" />
+
+            <TextView
+                android:id="@+id/tv_bio_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_profile_fragment_username"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="2dp"
+                android:text="@string/bio"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_profile_fragment_bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bio_heading"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_bio"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="top"
+                android:layout_marginEnd="10dp"
+                android:maxLength="100"
+                android:maxLines="6"
+                android:minLines="6"
+                android:padding="20dp"
+                android:text="@string/hey_there"
+
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
@@ -87,9 +156,9 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="60dp"
+            android:contentDescription="@string/todo"
             android:padding="43dp"
-            android:src="@drawable/ic_un_draw_mention"
-            android:contentDescription="@string/todo" />
+            android:src="@drawable/ic_un_draw_mention" />
     </RelativeLayout>
 
 

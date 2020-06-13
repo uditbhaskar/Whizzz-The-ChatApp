@@ -24,7 +24,13 @@
     <string name="type_your_messages_here">Type a message</string>
     <string name="a_sample_message">A sample message</string>
     <string name="profile">Profile</string>
-    <string name="s">username</string>
+    <string name="s">Username</string>
     <string name="todo1">TODO</string>
     <string name="todo">TODO</string>
+    <string name="name">Name</string>
+    <string name="hey_there">Hey there!</string>
+    <string name="bio">Bio</string>
+    <string name="your_text_here">Your text here.</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

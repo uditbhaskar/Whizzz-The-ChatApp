@@ -159,12 +159,10 @@ public class MessageActivity extends AppCompatActivity {
 
 
     private void init() {
-        databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
-                .getInstance(getApplication()))
-                .get(DatabaseViewModel.class);
-        logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
-                .getInstance(getApplication()))
-                .get(LogInViewModel.class);
+        databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
+                        .get(DatabaseViewModel.class);
+        logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
+                        .get(LogInViewModel.class);
         context = MessageActivity.this;
 
 

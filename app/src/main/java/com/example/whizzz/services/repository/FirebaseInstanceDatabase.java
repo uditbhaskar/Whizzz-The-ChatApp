@@ -31,8 +31,6 @@ public class FirebaseInstanceDatabase {
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
 
-
-
     public MutableLiveData<DataSnapshot> fetchAllUserNames() {
         final MutableLiveData<DataSnapshot> fetchAllUSerName = new MutableLiveData<>();
 
@@ -61,7 +59,7 @@ public class FirebaseInstanceDatabase {
 
     public MutableLiveData<StorageReference> fetchFileReference(String timeStamp, Uri imageUri, Context context) {
         final MutableLiveData<StorageReference> fetchFileReferenceImage = new MutableLiveData<>();
-        final StorageReference fileReference = storageReference.child(timeStamp+"."+getFileExtension(imageUri, context));
+        final StorageReference fileReference = storageReference.child(timeStamp + "." + getFileExtension(imageUri, context));
         fetchFileReferenceImage.setValue(fileReference);
         return fetchFileReferenceImage;
     }
@@ -144,10 +142,10 @@ public class FirebaseInstanceDatabase {
     }
 
 
-    public MutableLiveData<Boolean> addImageUrlInDatabase(String imageUrl,Object mUri){
+    public MutableLiveData<Boolean> addImageUrlInDatabase(String imageUrl, Object mUri) {
         final MutableLiveData<Boolean> successAddUriImage = new MutableLiveData<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        HashMap<String,Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put(imageUrl, mUri);
         reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -165,6 +163,46 @@ public class FirebaseInstanceDatabase {
         return successAddUriImage;
     }
 
+    public MutableLiveData<Boolean> addUsernameInDatabase(String usernameUpdated, Object username) {
+        final MutableLiveData<Boolean> successAddUserName = new MutableLiveData<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(usernameUpdated, username);
+        reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successAddUserName.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddUserName.setValue(false);
+            }
+        });
+
+        return successAddUserName;
+    }
+
+    public MutableLiveData<Boolean> addBioInDatabase(String bioUpdated, Object bio) {
+        final MutableLiveData<Boolean> successAddBio = new MutableLiveData<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(bioUpdated, bio);
+        reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successAddBio.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddBio.setValue(false);
+            }
+        });
+
+        return successAddBio;
+    }
+
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {
         final MutableLiveData<Boolean> successAddUserDb = new MutableLiveData<>();
 
@@ -174,6 +212,7 @@ public class FirebaseInstanceDatabase {
         hashMap.put("emailId", emailId);
         hashMap.put("timestamp", timestamp);
         hashMap.put("imageUrl", imageUrl);
+        hashMap.put("bio", "");
 
         instance.getReference("Users").child(userId).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
