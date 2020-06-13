@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,16 +43,22 @@ public class ProfileFragment extends Fragment {
     Context context;
 
     DatabaseViewModel databaseViewModel;
-    TextView tv_currentUserName_profile_fragment;
+    EditText tv_currentUserName_profile_fragment;
     CircleImageView iv_profileImage_profile_fragment;
     ImageView btn_profile_image_change;
+    ImageView btn_save_edit_user_name;
+    TextView tv_profile_fragment_bio;
     String username;
     String imageUrl;
+    String userBio;
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     String timeStamp;
+    @SuppressWarnings("rawtypes")
     private StorageTask uploadImageTask;
     private StorageReference fileReference;
+
+    Boolean isUsername;
 
     public ProfileFragment(Context context) {
 
@@ -76,8 +83,9 @@ public class ProfileFragment extends Fragment {
                 if (user != null) {
                     username = user.getUsername();
                     imageUrl = user.getImageUrl();
-
+                    userBio = user.getBio();
                     tv_currentUserName_profile_fragment.setText(username);
+                    tv_profile_fragment_bio.setText(userBio);
                     if (imageUrl.equals("default")) {
                         iv_profileImage_profile_fragment.setImageResource(R.drawable.sample_img);
                     } else {
@@ -111,6 +119,7 @@ public class ProfileFragment extends Fragment {
             fetchingImageFileReference();
             databaseViewModel.fetchImageFileReference(timeStamp, imageUri, context);
             databaseViewModel.imageFileReference.observe(this, new Observer<StorageReference>() {
+                @SuppressWarnings("unchecked")
                 @Override
                 public void onChanged(StorageReference storageReference) {
                     fileReference = storageReference;
@@ -169,6 +178,13 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private void openBottomSheet(Boolean isUsername) {
+        BottomSheetFragmentUsername bottomSheetFragmentUsername = new BottomSheetFragmentUsername(context,isUsername );
+        assert getFragmentManager() != null;
+        bottomSheetFragmentUsername.show(getFragmentManager(), "edit");
+
+    }
+
     private void init(View view) {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(Objects.requireNonNull(getActivity()).getApplication()))
@@ -177,7 +193,8 @@ public class ProfileFragment extends Fragment {
         tv_currentUserName_profile_fragment = view.findViewById(R.id.tv_profile_fragment_username);
         iv_profileImage_profile_fragment = view.findViewById(R.id.iv_profile_fragment);
         btn_profile_image_change = view.findViewById(R.id.btn_profile_image_change);
-
+        btn_save_edit_user_name = view.findViewById(R.id.btn_save_edit_username);
+        tv_profile_fragment_bio = view.findViewById(R.id.tv_profile_fragment_bio);
         btn_profile_image_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +202,30 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        iv_profileImage_profile_fragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openImage();
+            }
+        });
+
+        btn_save_edit_user_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isUsername = true;
+                openBottomSheet(true);
+
+            }
+        });
+
+        tv_profile_fragment_bio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isUsername = false;
+                openBottomSheet(false);
+
+            }
+        });
     }
 
 

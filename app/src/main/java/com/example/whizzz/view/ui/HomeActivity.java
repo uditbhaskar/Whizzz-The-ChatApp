@@ -82,7 +82,7 @@ public class HomeActivity extends AppCompatActivity {
                     linearLayout.setVisibility(View.VISIBLE);
                     username = user.getUsername();
                     imageUrl = user.getImageUrl();
-                    Toast.makeText(HomeActivity.this, "Welcome back " + username + ".", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(HomeActivity.this, "Welcome back " + username + ".", Toast.LENGTH_SHORT).show();
                     currentUserName.setText(username);
                     if (imageUrl.equals("default")) {
                         profileImage.setImageResource(R.drawable.sample_img);

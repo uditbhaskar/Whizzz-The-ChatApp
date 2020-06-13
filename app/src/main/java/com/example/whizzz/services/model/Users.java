@@ -2,12 +2,15 @@ package com.example.whizzz.services.model;
 
 public class Users {
 
-    public Users(String id, String username, String emailId, String timestamp, String imageUrl) {
+
+
+    public Users(String id, String username, String emailId, String timestamp, String imageUrl, String bio) {
         this.id = id;
         this.username = username;
         this.emailId = emailId;
         this.timestamp = timestamp;
         this.imageUrl = imageUrl;
+        this.bio = bio;
     }
 
     public String getId() {
@@ -45,6 +48,13 @@ public class Users {
     public String getImageUrl() {
         return imageUrl;
     }
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
@@ -55,6 +65,7 @@ public class Users {
     private String emailId;
     private String timestamp;
     private String imageUrl;
+    private String bio;
 
 
 
