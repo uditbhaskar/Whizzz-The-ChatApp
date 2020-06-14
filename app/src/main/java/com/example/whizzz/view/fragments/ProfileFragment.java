@@ -3,8 +3,10 @@ package com.example.whizzz.view.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,6 +47,7 @@ public class ProfileFragment extends Fragment {
     Context context;
 
     DatabaseViewModel databaseViewModel;
+    byte[] dataImageByte;
     EditText tv_currentUserName_profile_fragment;
     CircleImageView iv_profileImage_profile_fragment;
     ImageView btn_profile_image_change;
@@ -116,14 +121,13 @@ public class ProfileFragment extends Fragment {
         if (imageUri != null) {
             long tsLong = System.currentTimeMillis();
             timeStamp = Long.toString(tsLong);
-            fetchingImageFileReference();
             databaseViewModel.fetchImageFileReference(timeStamp, imageUri, context);
             databaseViewModel.imageFileReference.observe(this, new Observer<StorageReference>() {
                 @SuppressWarnings("unchecked")
                 @Override
                 public void onChanged(StorageReference storageReference) {
                     fileReference = storageReference;
-                    uploadImageTask = fileReference.putFile(imageUri);
+                    uploadImageTask = fileReference.putBytes(dataImageByte);  //image address
                     uploadImageTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                         @Override
                         public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -160,8 +164,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void fetchingImageFileReference() {
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -169,6 +171,18 @@ public class ProfileFragment extends Fragment {
 
         if (requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
+
+            Bitmap bmp = null;
+            try {
+                bmp = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getActivity()).getContentResolver(), data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            assert bmp != null;
+            bmp.compress(Bitmap.CompressFormat.JPEG, 10, baos);   //compression
+            dataImageByte = baos.toByteArray();
+
             if (uploadImageTask != null && uploadImageTask.isInProgress()) {
                 Toast.makeText(context, "Upload in progress.", Toast.LENGTH_SHORT).show();
             } else {
@@ -179,7 +193,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void openBottomSheet(Boolean isUsername) {
-        BottomSheetFragmentUsernameAndBioUpdate bottomSheetFragmentUsernameAndBioUpdate = new BottomSheetFragmentUsernameAndBioUpdate(context,isUsername );
+        BottomSheetFragmentUsernameAndBioUpdate bottomSheetFragmentUsernameAndBioUpdate = new BottomSheetFragmentUsernameAndBioUpdate(context, isUsername);
         assert getFragmentManager() != null;
         bottomSheetFragmentUsernameAndBioUpdate.show(getFragmentManager(), "edit");
 
@@ -195,6 +209,7 @@ public class ProfileFragment extends Fragment {
         btn_profile_image_change = view.findViewById(R.id.btn_profile_image_change);
         btn_save_edit_user_name = view.findViewById(R.id.btn_save_edit_username);
         tv_profile_fragment_bio = view.findViewById(R.id.tv_profile_fragment_bio);
+
         btn_profile_image_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
