@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.whizzz.R;
 import com.example.whizzz.services.model.Users;
+import com.example.whizzz.view.fragments.BottomSheetProfileDetailUser;
 import com.example.whizzz.view.ui.MessageActivity;
 
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
 
     private ArrayList<Users> usersArrayList;
     private Context context;
+    private BottomSheetProfileDetailUser bottomSheetProfileDetailUser;
+
 
     public UserFragmentAdapter(ArrayList<Users> usersArrayList, Context context) {
         this.usersArrayList = usersArrayList;
@@ -44,6 +49,7 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
 
         String imageUrl = users.getImageUrl();
         String userName = users.getUsername();
+        String bio = users.getBio();
 
         if (imageUrl.equals("default")) {
             holder.iv_profile_image.setImageResource(R.drawable.sample_img);
@@ -52,6 +58,14 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
         }
 
         holder.tv_name.setText(userName);
+        holder.iv_profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottomSheetProfileDetailUser = new BottomSheetProfileDetailUser(userName, imageUrl, bio, context);
+                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                bottomSheetProfileDetailUser.show(manager, "edit");
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

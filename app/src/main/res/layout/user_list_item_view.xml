@@ -17,7 +17,9 @@
             android:layout_width="0dp"
             android:padding="2dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:focusable="true"/>
 
         <TextView
             android:id="@+id/user_name_list"

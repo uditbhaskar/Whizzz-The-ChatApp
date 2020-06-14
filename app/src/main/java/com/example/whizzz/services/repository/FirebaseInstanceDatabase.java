@@ -212,7 +212,7 @@ public class FirebaseInstanceDatabase {
         hashMap.put("emailId", emailId);
         hashMap.put("timestamp", timestamp);
         hashMap.put("imageUrl", imageUrl);
-        hashMap.put("bio", "");
+        hashMap.put("bio", "Hey there!");
 
         instance.getReference("Users").child(userId).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
