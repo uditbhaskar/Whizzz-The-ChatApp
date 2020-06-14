@@ -19,7 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Objects;
 
-public class BottomSheetFragmentUsername extends BottomSheetDialogFragment {
+public class BottomSheetFragmentUsernameAndBioUpdate extends BottomSheetDialogFragment {
     Context context;
     Boolean isUsername;
 
@@ -30,7 +30,7 @@ public class BottomSheetFragmentUsername extends BottomSheetDialogFragment {
     String username;
     String bio;
 
-    public BottomSheetFragmentUsername(Context context, Boolean isUsername) {
+    public BottomSheetFragmentUsernameAndBioUpdate(Context context, Boolean isUsername) {
         this.context = context;
         this.isUsername = isUsername;
     }
@@ -45,7 +45,7 @@ public class BottomSheetFragmentUsername extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
+        View view = inflater.inflate(R.layout.fragment_bottom_sheet_bio_username_update, container, false);
         Objects.requireNonNull(Objects.requireNonNull(getDialog()).getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         view.findViewById(R.id.et_user_input_bottom_sheet_fragment).requestFocus();
         init(view);

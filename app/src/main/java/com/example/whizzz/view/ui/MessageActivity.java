@@ -19,6 +19,7 @@ import com.example.whizzz.R;
 import com.example.whizzz.services.model.Chats;
 import com.example.whizzz.services.model.Users;
 import com.example.whizzz.view.adapters.MessageAdapter;
+import com.example.whizzz.view.fragments.BottomSheetProfileDetailUser;
 import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.LogInViewModel;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,6 +39,7 @@ public class MessageActivity extends AppCompatActivity {
 
     String profileUserNAme;
     String profileImageURL;
+    String bio;
     FirebaseUser currentFirebaseUser;
 
     EditText et_chat;
@@ -52,6 +54,7 @@ public class MessageActivity extends AppCompatActivity {
     ArrayList<Chats> chatsArrayList;
     RecyclerView recyclerView;
     Context context;
+    BottomSheetProfileDetailUser bottomSheetProfileDetailUser;
 
 
     @Override
@@ -62,6 +65,15 @@ public class MessageActivity extends AppCompatActivity {
         getUserIdOfCurrentProfile();
         getCurrentFirebaseUser();
         fetchAndSaveCurrentProfileTextAndData();
+
+
+        iv_profile_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openBottomSheetDetailFragment(profileUserNAme,profileImageURL,bio);
+            }
+        });
+
 
         btn_sendIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +88,12 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void openBottomSheetDetailFragment(String username,String imageUrl,String bio) {
+        bottomSheetProfileDetailUser = new BottomSheetProfileDetailUser(username, imageUrl, bio, context);
+        assert getSupportActionBar()!= null;
+        bottomSheetProfileDetailUser.show(getSupportFragmentManager(), "edit");
     }
 
     private void getCurrentFirebaseUser() {
@@ -106,7 +124,7 @@ public class MessageActivity extends AppCompatActivity {
                 assert user != null;
                 profileUserNAme = user.getUsername();
                 profileImageURL = user.getImageUrl();
-
+                bio = user.getBio();
                 tv_profile_user_name.setText(profileUserNAme);
                 if (profileImageURL.equals("default")) {
                     iv_profile_image.setImageResource(R.drawable.sample_img);
@@ -167,6 +185,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
         iv_profile_image = findViewById(R.id.iv_user_image);
+
         tv_profile_user_name = findViewById(R.id.tv_profile_user_name);
         iv_back_button = findViewById(R.id.iv_back_button);
 
@@ -185,6 +204,8 @@ public class MessageActivity extends AppCompatActivity {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         chatsArrayList = new ArrayList<>();
+
+
     }
 
 

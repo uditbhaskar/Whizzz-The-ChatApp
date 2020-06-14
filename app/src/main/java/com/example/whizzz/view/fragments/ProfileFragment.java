@@ -179,9 +179,9 @@ public class ProfileFragment extends Fragment {
     }
 
     private void openBottomSheet(Boolean isUsername) {
-        BottomSheetFragmentUsername bottomSheetFragmentUsername = new BottomSheetFragmentUsername(context,isUsername );
+        BottomSheetFragmentUsernameAndBioUpdate bottomSheetFragmentUsernameAndBioUpdate = new BottomSheetFragmentUsernameAndBioUpdate(context,isUsername );
         assert getFragmentManager() != null;
-        bottomSheetFragmentUsername.show(getFragmentManager(), "edit");
+        bottomSheetFragmentUsernameAndBioUpdate.show(getFragmentManager(), "edit");
 
     }
 

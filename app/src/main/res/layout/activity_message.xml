@@ -30,13 +30,16 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_user_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="5dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="7dp"
                 android:layout_toEndOf="@+id/iv_back_button"
                 android:src="@color/white"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:clickable="true"
+                android:focusable="true"/>
 
             <TextView
                 android:id="@+id/tv_profile_user_name"
