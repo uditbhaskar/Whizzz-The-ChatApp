@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -29,7 +30,7 @@ public class ChatFragment extends Fragment {
     private UserFragmentAdapter userAdapter;
     private ArrayList<Users> mUsers;
     private String currentUserId;
-
+    RelativeLayout relative_layout_chat_fragment;
     private ArrayList<String> userList; //list of all other users with chat record
     private DatabaseViewModel databaseViewModel;
     private RecyclerView recyclerView_chat_fragment;
@@ -104,7 +105,9 @@ public class ChatFragment extends Fragment {
                     }
 
                 }
-
+                if(mUsers.size()>=1){
+                    relative_layout_chat_fragment.setVisibility(View.GONE);
+                }
                 userAdapter = new UserFragmentAdapter(mUsers, context);
                 recyclerView_chat_fragment.setAdapter(userAdapter);
             }
@@ -117,7 +120,7 @@ public class ChatFragment extends Fragment {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(Objects.requireNonNull(getActivity()).getApplication()))
                 .get(DatabaseViewModel.class);
-
+        relative_layout_chat_fragment = view.findViewById(R.id.relative_layout_chat_fragment);
         recyclerView_chat_fragment = view.findViewById(R.id.recycler_view_chat_fragment);
         recyclerView_chat_fragment.setLayoutManager(new LinearLayoutManager(context));
         mUsers = new ArrayList<>();

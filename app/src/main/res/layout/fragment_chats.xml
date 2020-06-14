@@ -5,14 +5,39 @@
     android:layout_height="match_parent"
     tools:context=".view.fragments.ChatFragment"
 
->
+    >
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_chat_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_chat_fragment_empty"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_empty_chat_view" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_chat_fragment_empty"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:text="@string/once_you_start_chatting_all_your_chat_appear_here"
+            android:fontFamily="@font/pacifico"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_chat_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        />
-    
+        android:layout_alignParentTop="true" />
+
 
 </RelativeLayout>
