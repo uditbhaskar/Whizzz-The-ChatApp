@@ -34,4 +34,6 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="once_you_start_chatting_all_your_chat_appear_here">All your chats will appear here!</string>
+    <string name="_9_00_pm">9:00 PM</string>
+    <string name="toodo">TODO</string>
 </resources>

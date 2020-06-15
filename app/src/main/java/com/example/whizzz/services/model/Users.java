@@ -48,6 +48,11 @@ public class Users {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public String getBio() {
         return bio;
     }
@@ -56,9 +61,7 @@ public class Users {
         this.bio = bio;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+
 
     private String id;
     private String username;
