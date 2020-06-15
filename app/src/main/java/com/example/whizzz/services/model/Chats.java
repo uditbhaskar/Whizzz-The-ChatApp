@@ -1,7 +1,7 @@
 package com.example.whizzz.services.model;
 
 public class Chats {
-    private String receiverId; //current userId
+    private String receiverId;
     private String senderId;
     private String message;
     private String timestamp;

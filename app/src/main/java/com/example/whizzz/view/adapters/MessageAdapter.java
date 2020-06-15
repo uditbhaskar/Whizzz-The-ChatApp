@@ -1,5 +1,6 @@
 package com.example.whizzz.view.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.whizzz.R;
 import com.example.whizzz.services.model.Chats;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
 
@@ -45,8 +49,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     @Override
     public void onBindViewHolder(@NonNull MessageHolder holder, int position) {
         Chats chats = chatArrayList.get(position);
-        String message= chats.getMessage().toString();
+        String message= chats.getMessage();
+        String timeStamp = chats.getTimestamp();
+        long intTimeStamp = Long.parseLong(timeStamp);
+        String time_msg_received = timeStampConversionToTime(intTimeStamp);
+        holder.tv_time.setText(time_msg_received);
         holder.tv_msg.setText(message);
+    }
+
+    public String timeStampConversionToTime(long timeStamp) {
+
+        Date date = new Date(timeStamp);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat jdf = new SimpleDateFormat("hh:mm a");
+        jdf.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
+        return jdf.format(date);
+
     }
 
     @Override
@@ -56,9 +73,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
 
     public class MessageHolder extends RecyclerView.ViewHolder {
         TextView tv_msg;
+        TextView tv_time;
         public MessageHolder(@NonNull View itemView) {
             super(itemView);
             tv_msg= itemView.findViewById(R.id.tv_chat_received);
+            tv_time = itemView.findViewById(R.id.tv_chat_time_received);
 
         }
     }

@@ -5,7 +5,7 @@
     android:padding="8dp">
 
     <RelativeLayout
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true">
 
@@ -17,10 +17,22 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="5dp"
             android:background="@drawable/background_right_sender"
-            android:padding="10dp"
+            android:maxWidth="250dp"
+            android:padding="14dp"
             android:text="@string/a_sample_message"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_chat_time_received"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="7dp"
+            android:layout_toStartOf="@+id/tv_chat_received"
+            android:text="@string/_9_00_pm"
+            android:textSize="12sp"
+            android:alpha="0.5"/>
 
     </RelativeLayout>
 

@@ -37,8 +37,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_profile_fragment"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@color/grey" />
@@ -88,7 +88,8 @@
                 android:text="@string/s"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:importantForAutofill="no" />
 
             <ImageView
                 android:id="@+id/btn_save_edit_username"

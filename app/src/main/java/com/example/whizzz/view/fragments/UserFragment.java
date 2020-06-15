@@ -43,7 +43,6 @@ public class UserFragment extends Fragment {
     }
 
 
-
     private void fetchingAllUserNAme() {
         databaseViewModel.fetchingUserDataCurrent();
         databaseViewModel.fetchUserCurrentData.observe(this, new Observer<DataSnapshot>() {
