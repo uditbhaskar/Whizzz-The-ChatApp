@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.example.whizzz.services.model.Users;
 import com.example.whizzz.view.fragments.BottomSheetProfileDetailUser;
 import com.example.whizzz.view.ui.MessageActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,11 +29,12 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
     private ArrayList<Users> usersArrayList;
     private Context context;
     private BottomSheetProfileDetailUser bottomSheetProfileDetailUser;
+    private Boolean isChat;
 
-
-    public UserFragmentAdapter(ArrayList<Users> usersArrayList, Context context) {
+    public UserFragmentAdapter(ArrayList<Users> usersArrayList, Context context, Boolean isChat) {
         this.usersArrayList = usersArrayList;
         this.context = context;
+        this.isChat = isChat;
     }
 
     @NonNull
@@ -50,7 +53,22 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
         String imageUrl = users.getImageUrl();
         String userName = users.getUsername();
         String bio = users.getBio();
+        String user_status = users.getStatus();
 
+        if (isChat) {
+            try {
+
+                if (user_status.contains("online") && isNetworkConnected()) {
+                    holder.iv_status_user_list.setBackgroundResource(R.drawable.online_status);
+                } else if (user_status.contains("offline")) {
+                    holder.iv_status_user_list.setBackgroundResource(R.drawable.offline_status);
+                }
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            holder.iv_status_user_list.setVisibility(View.GONE);
+        }
         if (imageUrl.equals("default")) {
             holder.iv_profile_image.setImageResource(R.drawable.sample_img);
         } else {
@@ -62,7 +80,7 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
             @Override
             public void onClick(View v) {
                 bottomSheetProfileDetailUser = new BottomSheetProfileDetailUser(userName, imageUrl, bio, context);
-                FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
                 bottomSheetProfileDetailUser.show(manager, "edit");
             }
         });
@@ -84,14 +102,22 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
         return usersArrayList.size();
     }
 
+
+    public boolean isNetworkConnected() throws InterruptedException, IOException {
+        final String command = "ping -c 1 google.com";
+        return Runtime.getRuntime().exec(command).waitFor() == 0;
+    }
+
     public class UserFragmentHolder extends RecyclerView.ViewHolder {
         CircleImageView iv_profile_image;
         TextView tv_name;
+        ImageView iv_status_user_list;
 
         UserFragmentHolder(@NonNull View itemView) {
             super(itemView);
             iv_profile_image = itemView.findViewById(R.id.profile_image);
             tv_name = itemView.findViewById(R.id.user_name_list);
+            iv_status_user_list = itemView.findViewById(R.id.iv_status_user_list);
         }
     }
 

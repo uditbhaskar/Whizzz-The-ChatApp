@@ -28,18 +28,44 @@
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:tint="@android:color/white" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_user_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="5dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="7dp"
-                android:layout_toEndOf="@+id/iv_back_button"
-                android:src="@color/white"
-                android:textSize="18sp"
-                android:clickable="true"
-                android:focusable="true"/>
+            <RelativeLayout
+                android:id="@+id/relativeLayout_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/iv_back_button">
+
+                <RelativeLayout
+                    android:id="@+id/relativeLayout_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user_image"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="7dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="5dp"
+                        android:src="@color/white"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_user_status_message_view"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:layout_alignEnd="@+id/relativeLayout_second"
+                    android:layout_alignBottom="@+id/relativeLayout_second"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/offline_status">
+
+                </ImageView>
+
+
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/tv_profile_user_name"
@@ -47,8 +73,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="7dp"
-                android:layout_toEndOf="@+id/iv_user_image"
+                android:layout_toEndOf="@+id/relativeLayout_message"
                 android:padding="2dp"
+                android:text="@string/username"
                 android:textColor="#fff"
                 android:textStyle="bold" />
         </RelativeLayout>

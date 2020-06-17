@@ -25,6 +25,7 @@ import com.example.whizzz.viewModel.LogInViewModel;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -36,6 +37,7 @@ public class MessageActivity extends AppCompatActivity {
     CircleImageView iv_profile_image;
     TextView tv_profile_user_name;
     ImageView iv_back_button;
+    ImageView iv_user_status_message_view;
 
     String profileUserNAme;
     String profileImageURL;
@@ -49,7 +51,7 @@ public class MessageActivity extends AppCompatActivity {
     String timeStamp;
     String userId_sender; // id of user to whom message is sent or by whom message will be received
     String userId_receiver; //myID
-
+    String user_status;
     MessageAdapter messageAdapter;
     ArrayList<Chats> chatsArrayList;
     RecyclerView recyclerView;
@@ -70,7 +72,7 @@ public class MessageActivity extends AppCompatActivity {
         iv_profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBottomSheetDetailFragment(profileUserNAme,profileImageURL,bio);
+                openBottomSheetDetailFragment(profileUserNAme, profileImageURL, bio);
             }
         });
 
@@ -90,9 +92,9 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void openBottomSheetDetailFragment(String username,String imageUrl,String bio) {
+    private void openBottomSheetDetailFragment(String username, String imageUrl, String bio) {
         bottomSheetProfileDetailUser = new BottomSheetProfileDetailUser(username, imageUrl, bio, context);
-        assert getSupportActionBar()!= null;
+        assert getSupportActionBar() != null;
         bottomSheetProfileDetailUser.show(getSupportFragmentManager(), "edit");
     }
 
@@ -125,6 +127,18 @@ public class MessageActivity extends AppCompatActivity {
                 profileUserNAme = user.getUsername();
                 profileImageURL = user.getImageUrl();
                 bio = user.getBio();
+                user_status = user.getStatus();
+
+                try {
+                    if (user_status.contains("online") && isNetworkConnected()) {
+                        iv_user_status_message_view.setBackgroundResource(R.drawable.online_status);
+                    } else if (user_status.contains("offline")) {
+                        iv_user_status_message_view.setBackgroundResource(R.drawable.offline_status);
+                    }
+                } catch (InterruptedException | IOException e) {
+                    e.printStackTrace();
+                }
+
                 tv_profile_user_name.setText(profileUserNAme);
                 if (profileImageURL.equals("default")) {
                     iv_profile_image.setImageResource(R.drawable.sample_img);
@@ -135,6 +149,11 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean isNetworkConnected() throws InterruptedException, IOException {   //check internet connectivity
+        final String command = "ping -c 1 google.com";
+        return Runtime.getRuntime().exec(command).waitFor() == 0;
     }
 
     private void fetchChatFromDatabase(String myId, String senderId) {
@@ -167,7 +186,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {
-                    Toast.makeText(MessageActivity.this, "Sent.", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(MessageActivity.this, "Sent.", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MessageActivity.this, "Message can't be sent.", Toast.LENGTH_SHORT).show();
                 }
@@ -178,12 +197,12 @@ public class MessageActivity extends AppCompatActivity {
 
     private void init() {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
-                        .get(DatabaseViewModel.class);
+                .get(DatabaseViewModel.class);
         logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
-                        .get(LogInViewModel.class);
+                .get(LogInViewModel.class);
         context = MessageActivity.this;
 
-
+        iv_user_status_message_view = findViewById(R.id.iv_user_status_message_view);
         iv_profile_image = findViewById(R.id.iv_user_image);
 
         tv_profile_user_name = findViewById(R.id.tv_profile_user_name);
@@ -206,6 +225,23 @@ public class MessageActivity extends AppCompatActivity {
         chatsArrayList = new ArrayList<>();
 
 
+    }
+
+    private void status(String status) {
+        databaseViewModel.addBioInDatabase("status", status);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 
 

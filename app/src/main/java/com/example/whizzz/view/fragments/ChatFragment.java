@@ -85,6 +85,11 @@ public class ChatFragment extends Fragment {
 
     }
 
+
+    private void updateToken(String tokens){
+
+    }
+
     private void readChats() {
         databaseViewModel.fetchUserNameAll();
         databaseViewModel.fetchUserNames.observe(this, new Observer<DataSnapshot>() {
@@ -108,7 +113,7 @@ public class ChatFragment extends Fragment {
                 if(mUsers.size()>=1){
                     relative_layout_chat_fragment.setVisibility(View.GONE);
                 }
-                userAdapter = new UserFragmentAdapter(mUsers, context);
+                userAdapter = new UserFragmentAdapter(mUsers, context,true);
                 recyclerView_chat_fragment.setAdapter(userAdapter);
             }
         });

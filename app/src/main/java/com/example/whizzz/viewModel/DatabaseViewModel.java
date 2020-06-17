@@ -22,6 +22,8 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<Boolean> successAddImageUrlInDatabase;
     public LiveData<Boolean> successAddUsernameInDatabase;
     public LiveData<Boolean> successAddBioInDatabase;
+    public LiveData<Boolean> successAddStatusInDatabase;
+
 
 
     public DatabaseViewModel() {
@@ -66,6 +68,10 @@ public class DatabaseViewModel extends ViewModel {
 
     public void addUsernameInDatabase(String usernameUpdated, Object username) {
         successAddUsernameInDatabase = instance.addUsernameInDatabase(usernameUpdated, username);
+    }
+
+    public void addStatusInDatabase(String statusUpdated,Object status){
+        successAddStatusInDatabase = instance.addStatusInDatabase(statusUpdated, status);
     }
 
 
