@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -128,6 +129,8 @@ public class ChatFragment extends Fragment {
         relative_layout_chat_fragment = view.findViewById(R.id.relative_layout_chat_fragment);
         recyclerView_chat_fragment = view.findViewById(R.id.recycler_view_chat_fragment);
         recyclerView_chat_fragment.setLayoutManager(new LinearLayoutManager(context));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView_chat_fragment.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView_chat_fragment.addItemDecoration(dividerItemDecoration);
         mUsers = new ArrayList<>();
         userList = new ArrayList<>();
 
