@@ -160,8 +160,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void status(String status){
-        databaseViewModel.addBioInDatabase("status", status);
-
+        databaseViewModel.addStatusInDatabase("status", status);
     }
 
     @Override

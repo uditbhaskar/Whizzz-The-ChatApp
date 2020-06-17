@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragments.ChatFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#3D4045">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="@string/profile"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -71,11 +73,12 @@
                 android:focusable="true"
                 android:padding="2dp"
                 android:text="@string/name"
+                android:textColor="#AFACAC"
                 android:textSize="12sp">
 
             </TextView>
 
-            <EditText
+            <TextView
                 android:id="@+id/tv_profile_fragment_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +89,7 @@
                 android:padding="2dp"
                 android:gravity="top"
                 android:text="@string/s"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:importantForAutofill="no" />
@@ -115,6 +118,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="2dp"
+                android:textColor="#AFACAC"
                 android:text="@string/bio"
                 android:textSize="12sp" />
 
@@ -136,7 +140,7 @@
                 android:padding="20dp"
                 android:text="@string/hey_there"
 
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="15sp" />
 
 

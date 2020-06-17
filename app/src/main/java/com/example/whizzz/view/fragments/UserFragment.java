@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -70,6 +71,7 @@ public class UserFragment extends Fragment {
                     }
                     userFragmentAdapter = new UserFragmentAdapter(mUSer, context,false);
                     recyclerView.setAdapter(userFragmentAdapter);
+
                 }
 
             }
@@ -83,6 +85,8 @@ public class UserFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.user_list_recycle_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         mUSer = new ArrayList<>();
 
     }

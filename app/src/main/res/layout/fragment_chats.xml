@@ -19,6 +19,9 @@
             android:layout_height="350dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
             android:src="@drawable/ic_empty_chat_view"
             android:contentDescription="@string/todo" />
 
@@ -31,6 +34,7 @@
             android:textSize="22sp"
             android:text="@string/once_you_start_chatting_all_your_chat_appear_here"
             android:fontFamily="@font/pacifico"
+            android:textColor="@color/white"
             android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
