@@ -203,6 +203,29 @@ public class FirebaseInstanceDatabase {
         return successAddBio;
     }
 
+    public MutableLiveData<Boolean> addStatusInDatabase(String statusUpdated, Object status){
+        final MutableLiveData<Boolean> successAddStatus = new MutableLiveData<>();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(statusUpdated, status);
+        reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successAddStatus.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddStatus.setValue(false);
+            }
+        });
+        return successAddStatus;
+    }
+
+
+
+
+
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {
         final MutableLiveData<Boolean> successAddUserDb = new MutableLiveData<>();
 
@@ -213,6 +236,7 @@ public class FirebaseInstanceDatabase {
         hashMap.put("timestamp", timestamp);
         hashMap.put("imageUrl", imageUrl);
         hashMap.put("bio", "Hey there!");
+        hashMap.put("status", "offline");
 
         instance.getReference("Users").child(userId).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

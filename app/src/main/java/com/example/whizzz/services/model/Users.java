@@ -4,13 +4,14 @@ public class Users {
 
 
 
-    public Users(String id, String username, String emailId, String timestamp, String imageUrl, String bio) {
+    public Users(String id, String username, String emailId, String timestamp, String imageUrl, String bio,String status) {
         this.id = id;
         this.username = username;
         this.emailId = emailId;
         this.timestamp = timestamp;
         this.imageUrl = imageUrl;
         this.bio = bio;
+        this.status = status;
     }
 
     public String getId() {
@@ -61,6 +62,13 @@ public class Users {
         this.bio = bio;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
 
     private String id;
@@ -69,6 +77,10 @@ public class Users {
     private String timestamp;
     private String imageUrl;
     private String bio;
+
+
+
+    private String status;
 
 
 

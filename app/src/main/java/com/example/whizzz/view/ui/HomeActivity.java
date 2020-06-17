@@ -127,6 +127,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
     private void init() {
 
         logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
@@ -153,5 +157,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void status(String status){
+        databaseViewModel.addBioInDatabase("status", status);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("online");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        status("offline");
     }
 }
