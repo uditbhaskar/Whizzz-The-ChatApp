@@ -2,9 +2,12 @@ package com.example.whizzz.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -29,6 +32,7 @@ public class UserFragment extends Fragment {
     private String currentUserId;
     private RecyclerView recyclerView;
     private UserFragmentAdapter userFragmentAdapter;
+    EditText et_search;
 
     public UserFragment(Context context) {
         this.context = context;
@@ -59,21 +63,22 @@ public class UserFragment extends Fragment {
         databaseViewModel.fetchUserNames.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
+                if (et_search.getText().toString().equals("")) {
+                    mUSer.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Users user = snapshot.getValue(Users.class);
 
-                mUSer.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Users user = snapshot.getValue(Users.class);
+                        assert user != null;
+                        if (!currentUserId.equals(user.getId())) {
+                            mUSer.add(user);
 
-                    assert user != null;
-                    if (!currentUserId.equals(user.getId())) {
-                        mUSer.add(user);
+                        }
+                        userFragmentAdapter = new UserFragmentAdapter(mUSer, context, false);
+                        recyclerView.setAdapter(userFragmentAdapter);
 
                     }
-                    userFragmentAdapter = new UserFragmentAdapter(mUSer, context,false);
-                    recyclerView.setAdapter(userFragmentAdapter);
 
                 }
-
             }
         });
     }
@@ -88,6 +93,44 @@ public class UserFragment extends Fragment {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
         mUSer = new ArrayList<>();
+        et_search = view.findViewById(R.id.et_search);
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchUsers(s.toString().toLowerCase());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+    }
+
+    private void searchUsers(String searchText) {
+        databaseViewModel.fetchSearchedUser(searchText);
+        databaseViewModel.fetchSearchUser.observe(this, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(DataSnapshot dataSnapshot) {
+                mUSer.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Users users = snapshot.getValue(Users.class);
+
+                    assert users != null;
+                    if (!users.getId().equals(currentUserId)) {
+                        mUSer.add(users);
+                    }
+
+                }
+                userFragmentAdapter = new UserFragmentAdapter(mUSer, context, false);
+                recyclerView.setAdapter(userFragmentAdapter);
+            }
+        });
     }
 }

@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -100,6 +101,27 @@ public class FirebaseInstanceDatabase {
 
         return fetchCurrentUserData;
     }
+    public MutableLiveData<DataSnapshot> fetchSearchUser(String searchString){
+        final MutableLiveData<DataSnapshot> fetchSearchUserData = new MutableLiveData<>();
+
+        Query query = instance.getReference("Users").orderByChild("search")
+                .startAt(searchString)
+                .endAt(searchString+"\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fetchSearchUserData.setValue(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return fetchSearchUserData;
+    }
+
 
     public MutableLiveData<DataSnapshot> fetchChatUser() {
         final MutableLiveData<DataSnapshot> fetchUserChat = new MutableLiveData<>();
@@ -168,6 +190,8 @@ public class FirebaseInstanceDatabase {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         HashMap<String, Object> map = new HashMap<>();
         map.put(usernameUpdated, username);
+        String searchUserNam = username.toString().toLowerCase();       // changing search userName as well
+        map.put("search",searchUserNam);
         reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -227,6 +251,7 @@ public class FirebaseInstanceDatabase {
 
 
 
+
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {
         final MutableLiveData<Boolean> successAddUserDb = new MutableLiveData<>();
 
@@ -238,6 +263,7 @@ public class FirebaseInstanceDatabase {
         hashMap.put("imageUrl", imageUrl);
         hashMap.put("bio", "Hey there!");
         hashMap.put("status", "offline");
+        hashMap.put("search", userName.toLowerCase());
 
         instance.getReference("Users").child(userId).setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

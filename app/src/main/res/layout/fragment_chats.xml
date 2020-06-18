@@ -16,12 +16,12 @@
         <ImageView
             android:id="@+id/iv_chat_fragment_empty"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="330dp"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:src="@drawable/ic_empty_chat_view"
             android:contentDescription="@string/todo" />
 
@@ -35,7 +35,7 @@
             android:text="@string/once_you_start_chatting_all_your_chat_appear_here"
             android:fontFamily="@font/pacifico"
             android:textColor="@color/white"
-            android:layout_marginTop="20dp"/>
+           />
 
     </RelativeLayout>
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.MessageActivity">
+    tools:context=".view.ui.MessageActivity"
+    android:background="#3D4045">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -123,7 +124,7 @@
         <ImageView
             android:id="@+id/iv_send_button"
             android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_height="45dp"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
