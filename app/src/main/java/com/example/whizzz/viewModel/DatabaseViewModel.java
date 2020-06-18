@@ -23,6 +23,7 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<Boolean> successAddUsernameInDatabase;
     public LiveData<Boolean> successAddBioInDatabase;
     public LiveData<Boolean> successAddStatusInDatabase;
+    public LiveData<DataSnapshot> fetchSearchUser;
 
 
 
@@ -72,6 +73,10 @@ public class DatabaseViewModel extends ViewModel {
 
     public void addStatusInDatabase(String statusUpdated,Object status){
         successAddStatusInDatabase = instance.addStatusInDatabase(statusUpdated, status);
+    }
+
+    public void fetchSearchedUser(String searchQuery){
+        fetchSearchUser = instance.fetchSearchUser(searchQuery);
     }
 
 

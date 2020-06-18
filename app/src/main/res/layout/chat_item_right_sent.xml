@@ -32,6 +32,7 @@
             android:layout_toStartOf="@+id/tv_chat_received"
             android:text="@string/_9_00_pm"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:alpha="0.5"/>
 
     </RelativeLayout>

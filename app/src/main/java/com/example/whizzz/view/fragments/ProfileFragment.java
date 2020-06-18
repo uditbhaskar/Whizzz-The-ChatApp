@@ -52,6 +52,7 @@ public class ProfileFragment extends Fragment {
     ImageView btn_profile_image_change;
     ImageView btn_save_edit_user_name;
     TextView tv_profile_fragment_bio;
+
     String username;
     String imageUrl;
     String userBio;
