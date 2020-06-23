@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseUser currentUser;
     FrameLayout frameLayoutLogin;
     ScrollView scrollViewLogin;
+    TextView tv_forgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,6 +168,14 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LogInViewModel.class);
         frameLayoutLogin = findViewById(R.id.frame_layout_login);
         scrollViewLogin  = findViewById(R.id.scrollViewSignIn);
+        tv_forgetPassword = findViewById(R.id.tv_forget_password);
+
+        tv_forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgetPasswordActivity.class));
+            }
+        });
 
     }
 }
