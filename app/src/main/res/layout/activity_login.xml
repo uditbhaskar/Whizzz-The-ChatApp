@@ -133,52 +133,48 @@
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="40dp"
-                    android:orientation="horizontal"
-                    android:weightSum="4">
+                    android:gravity="center">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2.6"
+                        android:id="@+id/text_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/pacifico"
-                        android:gravity="end"
+                        android:gravity="center"
                         android:paddingStart="5dp"
                         android:paddingTop="2dp"
                         android:paddingEnd="0dp"
                         android:paddingBottom="2dp"
                         android:text="@string/don_t_have_an_account"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="19sp"
                         tools:ignore="NestedWeights" />
 
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1.4">
+
 
                         <TextView
                             android:id="@+id/text_to_signUp"
+                            android:layout_toEndOf="@id/text_tv"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:clickable="true"
                             android:focusable="true"
                             android:fontFamily="@font/pacifico"
                             android:gravity="start"
                             android:paddingStart="3dp"
                             android:paddingTop="2dp"
-                            android:paddingEnd="2dp"
+                            android:paddingEnd="4dp"
                             android:paddingBottom="2dp"
                             android:text="@string/register"
                             android:textColor="#63FF90"
-                            android:textSize="18sp" />
+                            android:textSize="19sp" />
                     </RelativeLayout>
 
 
-                </LinearLayout>
 
 
             </LinearLayout>
@@ -198,14 +194,12 @@
                 android:fontFamily="@font/kaushan"
                 android:gravity="center_horizontal"
                 android:paddingStart="0dp"
-                android:paddingTop="3dp"
+                android:paddingTop="5dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="4dp"
                 android:text="@string/forgot_your_password"
                 android:textColor="#63FF90"
-                android:textSize="16.5sp"
-
-                />
+                android:textSize="16.5sp" />
         </RelativeLayout>
 
     </ScrollView>
