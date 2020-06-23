@@ -153,48 +153,47 @@
                 android:textSize="16sp" />
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_gravity="bottom"
                 android:layout_marginTop="40dp"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:gravity="center"
+                >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.3"
+                    android:id="@+id/text_log"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/pacifico"
-                    android:gravity="end"
+                    android:gravity="center"
                     android:paddingStart="2dp"
                     android:paddingTop="2dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="2dp"
                     android:text="@string/already_have_an_account"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="19sp"
                     tools:ignore="NestedWeights" />
 
 
-                <TextView
-                    android:id="@+id/text_to_login"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.7"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:fontFamily="@font/pacifico"
-                    android:gravity="start"
-                    android:paddingStart="0dp"
-                    android:paddingTop="2dp"
-                    android:paddingEnd="2dp"
-                    android:paddingBottom="2dp"
-                    android:text="@string/login_here"
-                    android:textColor="#63FF90"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:layout_toEndOf="@+id/text_log"
+                        android:id="@+id/text_to_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/pacifico"
+                        android:gravity="start"
+                        android:paddingStart="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="2dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/login_here"
+                        android:textColor="#63FF90"
+                        android:textSize="19sp" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </LinearLayout>
