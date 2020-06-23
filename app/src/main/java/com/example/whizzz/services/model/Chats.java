@@ -5,17 +5,29 @@ public class Chats {
     private String senderId;
     private String message;
     private String timestamp;
+    private boolean seen;
 
-    public Chats(String receiverId, String senderId, String message, String timestamp) {
+    public Chats(String receiverId, String senderId, String message, String timestamp, boolean seen) {
         this.receiverId = receiverId;
         this.senderId = senderId;
         this.message = message;
         this.timestamp = timestamp;
+        this.seen = seen;
     }
 
     public Chats() {
 
     }
+
+
+    public boolean getSeen() {
+        return seen;
+    }
+
+    public void setSeen(boolean seen) {
+        this.seen= seen;
+    }
+
 
     public String getReceiverId() {
         return receiverId;

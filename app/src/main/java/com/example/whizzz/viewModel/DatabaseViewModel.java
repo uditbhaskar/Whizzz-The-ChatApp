@@ -24,6 +24,7 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<Boolean> successAddBioInDatabase;
     public LiveData<Boolean> successAddStatusInDatabase;
     public LiveData<DataSnapshot> fetchSearchUser;
+    public LiveData<Boolean> successAddIsSeen;
 
 
 
@@ -77,6 +78,10 @@ public class DatabaseViewModel extends ViewModel {
 
     public void fetchSearchedUser(String searchQuery){
         fetchSearchUser = instance.fetchSearchUser(searchQuery);
+    }
+
+    public void addIsSeenInDatabase(String isSeen,DataSnapshot dataSnapshot){
+        successAddIsSeen = instance.addIsSeenInDatabase(isSeen,dataSnapshot);
     }
 
 
