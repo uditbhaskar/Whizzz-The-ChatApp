@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -25,9 +26,14 @@ import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.LogInViewModel;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -58,6 +64,8 @@ public class MessageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Context context;
     BottomSheetProfileDetailUser bottomSheetProfileDetailUser;
+
+    ValueEventListener seenListener;
 
 
     @Override
@@ -150,7 +158,28 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+        addIsSeen();
     }
+
+    public void addIsSeen(){
+        String isSeen="seen";
+        databaseViewModel.fetchChatUser();
+        databaseViewModel.fetchedChat.observe(this, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(DataSnapshot dataSnapshot) {
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    Chats chats = dataSnapshot1.getValue(Chats.class);
+                    assert chats != null;
+                    if(chats.getReceiverId().equals(userId_sender) && chats.getSenderId().equals(userId_receiver)){
+                        databaseViewModel.addIsSeenInDatabase(isSeen,dataSnapshot1);
+                    }
+                }
+
+            }
+        });
+
+    }
+
 
     public boolean isNetworkConnected() throws InterruptedException, IOException {   //check internet connectivity
         final String command = "ping -c 1 google.com";

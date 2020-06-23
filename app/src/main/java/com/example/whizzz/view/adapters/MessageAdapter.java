@@ -51,10 +51,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
         Chats chats = chatArrayList.get(position);
         String message= chats.getMessage();
         String timeStamp = chats.getTimestamp();
+        boolean isSeen= chats.getSeen();
         long intTimeStamp = Long.parseLong(timeStamp);
         String time_msg_received = timeStampConversionToTime(intTimeStamp);
         holder.tv_time.setText(time_msg_received);
         holder.tv_msg.setText(message);
+
+        if(position==chatArrayList.size()-1){
+            if(isSeen){
+                holder.tv_seen.setVisibility(View.VISIBLE);
+                String seen = "Seen";
+                holder.tv_seen.setText(seen);
+            }else {
+                holder.tv_seen.setVisibility(View.VISIBLE);
+                String delivered = "Delivered";
+                holder.tv_seen.setText(delivered);
+            }
+        }else {
+            holder.tv_seen.setVisibility(View.GONE);
+        }
     }
 
     public String timeStampConversionToTime(long timeStamp) {
@@ -74,10 +89,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     public class MessageHolder extends RecyclerView.ViewHolder {
         TextView tv_msg;
         TextView tv_time;
+        TextView tv_seen;
         public MessageHolder(@NonNull View itemView) {
             super(itemView);
             tv_msg= itemView.findViewById(R.id.tv_chat_received);
             tv_time = itemView.findViewById(R.id.tv_chat_time_received);
+            tv_seen = itemView.findViewById(R.id.tv_seen);
 
         }
     }

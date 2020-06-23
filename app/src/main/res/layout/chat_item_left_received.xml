@@ -28,5 +28,16 @@
         android:text="@string/_9_00_pm"
         android:textColor="@color/white"
         android:alpha="0.5"/>
+    <TextView
+        android:id="@+id/tv_seen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_chat_received"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="4dp"
+        android:text="@string/seen"
+        android:textSize="12sp"
+        android:visibility="gone">
 
+    </TextView>
 </RelativeLayout>

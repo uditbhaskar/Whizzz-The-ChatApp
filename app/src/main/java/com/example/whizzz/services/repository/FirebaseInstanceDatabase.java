@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.whizzz.services.model.Chats;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -101,12 +103,13 @@ public class FirebaseInstanceDatabase {
 
         return fetchCurrentUserData;
     }
-    public MutableLiveData<DataSnapshot> fetchSearchUser(String searchString){
+
+    public MutableLiveData<DataSnapshot> fetchSearchUser(String searchString) {
         final MutableLiveData<DataSnapshot> fetchSearchUserData = new MutableLiveData<>();
 
         Query query = instance.getReference("Users").orderByChild("search")
                 .startAt(searchString)
-                .endAt(searchString+"\uf8ff");
+                .endAt(searchString + "\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -142,11 +145,12 @@ public class FirebaseInstanceDatabase {
     public MutableLiveData<Boolean> addChatsInDatabase(String senderId, String receiverId, String message, String timestamp) {
         final MutableLiveData<Boolean> successAddChatsDb = new MutableLiveData<>();
 
-        HashMap<String, String> hashMap = new HashMap<>();
+        HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("senderId", senderId);
         hashMap.put("receiverId", receiverId);
         hashMap.put("message", message);
         hashMap.put("timestamp", timestamp);
+        hashMap.put("seen", false);
 
         instance.getReference("Chats").push().setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -161,6 +165,26 @@ public class FirebaseInstanceDatabase {
         });
 
         return successAddChatsDb;
+    }
+
+    public MutableLiveData<Boolean> addIsSeenInDatabase(String isSeen, DataSnapshot dataSnapshot) {
+        final MutableLiveData<Boolean> successAddIsSeen = new MutableLiveData<>();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(isSeen, true);
+        dataSnapshot.getRef().updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                successAddIsSeen.setValue(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                successAddIsSeen.setValue(false);
+            }
+        });
+
+        return successAddIsSeen;
     }
 
 
@@ -191,7 +215,7 @@ public class FirebaseInstanceDatabase {
         HashMap<String, Object> map = new HashMap<>();
         map.put(usernameUpdated, username);
         String searchUserNam = username.toString().toLowerCase();       // changing search userName as well
-        map.put("search",searchUserNam);
+        map.put("search", searchUserNam);
         reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -227,7 +251,7 @@ public class FirebaseInstanceDatabase {
         return successAddBio;
     }
 
-    public MutableLiveData<Boolean> addStatusInDatabase(String statusUpdated, Object status){
+    public MutableLiveData<Boolean> addStatusInDatabase(String statusUpdated, Object status) {
         final MutableLiveData<Boolean> successAddStatus = new MutableLiveData<>();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
         HashMap<String, Object> map = new HashMap<>();
@@ -246,10 +270,6 @@ public class FirebaseInstanceDatabase {
         });
         return successAddStatus;
     }
-
-
-
-
 
 
     public MutableLiveData<Boolean> addUserInDatabase(String userId, String userName, String emailId, String timestamp, String imageUrl) {
