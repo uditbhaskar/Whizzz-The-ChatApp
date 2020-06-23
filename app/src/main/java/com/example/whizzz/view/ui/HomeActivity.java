@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (imageUrl.equals("default")) {
                         profileImage.setImageResource(R.drawable.sample_img);
                     } else {
-                        Glide.with(HomeActivity.this).load(imageUrl).into(profileImage);
+                        Glide.with(getApplicationContext()).load(imageUrl).into(profileImage);
                     }
                 } else {
                     Toast.makeText(HomeActivity.this, "User not found..", Toast.LENGTH_SHORT).show();

@@ -152,7 +152,7 @@ public class MessageActivity extends AppCompatActivity {
                 if (profileImageURL.equals("default")) {
                     iv_profile_image.setImageResource(R.drawable.sample_img);
                 } else {
-                    Glide.with(MessageActivity.this).load(profileImageURL).into(iv_profile_image);
+                    Glide.with(getApplicationContext()).load(profileImageURL).into(iv_profile_image);
                 }
                 fetchChatFromDatabase(userId_sender, userId_receiver);
             }

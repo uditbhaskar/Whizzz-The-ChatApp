@@ -38,4 +38,9 @@
     <string name="toodo">TODO</string>
     <string name="search">Search...</string>
     <string name="seen">Seen</string>
+    <string name="forgot_your_password">Forget password?\u0020</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="reset">RESET</string>
+    <string name="by_clicking_reset_you_will_receive_an_email_n_to_reset_your_password">By clicking RESET, you will receive an email \n to reset your password.</string>
 </resources>
