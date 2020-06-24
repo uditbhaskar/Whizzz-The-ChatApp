@@ -8,11 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,14 +24,9 @@ import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.LogInViewModel;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,8 +49,8 @@ public class MessageActivity extends AppCompatActivity {
 
     String chat;
     String timeStamp;
-    String userId_sender; // id of user to whom message is sent or by whom message will be received// message receiverId
-    String userId_receiver; //myID //message senderId
+    String userId_receiver; // userId of other user who'll receive the text
+    String userId_sender;  // current user id
     String user_status;
     MessageAdapter messageAdapter;
     ArrayList<Chats> chatsArrayList;
@@ -112,20 +105,19 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onChanged(FirebaseUser firebaseUser) {
                 currentFirebaseUser = firebaseUser;
-                userId_receiver = currentFirebaseUser.getUid();
+                userId_sender = currentFirebaseUser.getUid();
             }
         });
     }
 
     private void getUserIdOfCurrentProfile() {
-        //from user fragment adapter itemView
-        //user id of sender
-        userId_sender = getIntent().getStringExtra("userid");
+        userId_receiver = getIntent().getStringExtra("userid");
+        // userId of other user who"ll receive the message
     }
 
     private void fetchAndSaveCurrentProfileTextAndData() {
 
-        databaseViewModel.fetchSelectedUserProfileData(userId_sender);
+        databaseViewModel.fetchSelectedUserProfileData(userId_receiver);
         databaseViewModel.fetchSelectedProfileUserData.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
@@ -153,7 +145,7 @@ public class MessageActivity extends AppCompatActivity {
                 } else {
                     Glide.with(getApplicationContext()).load(profileImageURL).into(iv_profile_image);
                 }
-                fetchChatFromDatabase(userId_sender, userId_receiver);
+                fetchChatFromDatabase(userId_receiver, userId_sender);
             }
         });
 
@@ -169,7 +161,7 @@ public class MessageActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     Chats chats = dataSnapshot1.getValue(Chats.class);
                     assert chats != null;
-                    if(chats.getReceiverId().equals(userId_sender) && chats.getSenderId().equals(userId_receiver)){
+                    if(chats.getSenderId().equals(userId_receiver) && chats.getReceiverId().equals(userId_sender)){
                         databaseViewModel.addIsSeenInDatabase(isSeen,dataSnapshot1);
                     }
                 }
@@ -199,7 +191,7 @@ public class MessageActivity extends AppCompatActivity {
                         chatsArrayList.add(chats);
                     }
 
-                    messageAdapter = new MessageAdapter(chatsArrayList, context, userId_receiver);
+                    messageAdapter = new MessageAdapter(chatsArrayList, context, userId_sender);
                     recyclerView.setAdapter(messageAdapter);
                 }
             }
@@ -210,7 +202,7 @@ public class MessageActivity extends AppCompatActivity {
 
         long tsLong = System.currentTimeMillis();
         timeStamp = Long.toString(tsLong);
-        databaseViewModel.addChatDb(userId_sender, userId_receiver, chat, timeStamp);
+        databaseViewModel.addChatDb(userId_receiver, userId_sender, chat, timeStamp);
         databaseViewModel.successAddChatDb.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
