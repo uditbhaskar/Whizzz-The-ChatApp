@@ -56,8 +56,8 @@ public class MessageActivity extends AppCompatActivity {
 
     String chat;
     String timeStamp;
-    String userId_sender; // id of user to whom message is sent or by whom message will be received
-    String userId_receiver; //myID
+    String userId_sender; // id of user to whom message is sent or by whom message will be received// message receiverId
+    String userId_receiver; //myID //message senderId
     String user_status;
     MessageAdapter messageAdapter;
     ArrayList<Chats> chatsArrayList;
@@ -65,7 +65,6 @@ public class MessageActivity extends AppCompatActivity {
     Context context;
     BottomSheetProfileDetailUser bottomSheetProfileDetailUser;
 
-    ValueEventListener seenListener;
 
 
     @Override
