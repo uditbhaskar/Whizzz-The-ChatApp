@@ -14,6 +14,7 @@ public class LogInViewModel extends ViewModel {
     public LiveData<Task> logInUser;
     public LiveData<FirebaseUser> firebaseUserLoginStatus;
     public LiveData<FirebaseAuth> firebaseAuthLiveData;
+    public LiveData<Task> successPasswordReset;
 
 
     public LogInViewModel() {
@@ -31,5 +32,10 @@ public class LogInViewModel extends ViewModel {
     public void getFirebaseAuth() {
         firebaseAuthLiveData = loginInstance.getFirebaseAuth();
     }
+
+    public void addPasswordResetEmail(String email){
+        successPasswordReset = loginInstance.resetPassword(email);
+    }
+
 
 }

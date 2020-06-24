@@ -60,6 +60,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
                     android:fontFamily="@font/pacifico"
                     android:gravity="center_vertical"
                     android:paddingStart="4dp"
@@ -72,6 +74,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
                     android:fontFamily="@font/pacifico"
                     android:paddingStart="6dp"
                     android:paddingTop="2dp"
@@ -85,8 +89,9 @@
                     android:id="@+id/et_login_email"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="30dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="25dp"
                     android:autofillHints=""
                     android:background="@drawable/background_edit_text"
                     android:drawableStart="@drawable/ic_mail_outline"
@@ -104,8 +109,9 @@
                     android:id="@+id/et_login_password"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="28dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="25dp"
                     android:autofillHints=""
                     android:background="@drawable/background_edit_text"
                     android:drawableStart="@drawable/ic_lock_outline_black_24dp"
@@ -123,8 +129,9 @@
                     android:id="@+id/btn_login"
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
+                    android:layout_marginStart="25dp"
                     android:layout_marginTop="50dp"
-                    android:layout_marginEnd="50dp"
+                    android:layout_marginEnd="25dp"
                     android:background="@drawable/button_background"
                     android:gravity="center"
                     android:paddingBottom="2dp"
@@ -155,29 +162,27 @@
                         tools:ignore="NestedWeights" />
 
 
-
-                        <TextView
-                            android:id="@+id/text_to_signUp"
-                            android:layout_toEndOf="@id/text_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:fontFamily="@font/pacifico"
-                            android:gravity="start"
-                            android:paddingStart="3dp"
-                            android:paddingTop="2dp"
-                            android:paddingEnd="4dp"
-                            android:paddingBottom="2dp"
-                            android:text="@string/register"
-                            android:textColor="#63FF90"
-                            android:textSize="19sp" />
-                    </RelativeLayout>
-
-
+                    <TextView
+                        android:id="@+id/text_to_signUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/text_tv"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/pacifico"
+                        android:gravity="start"
+                        android:paddingStart="3dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="2dp"
+                        android:text="@string/register"
+                        android:textColor="#63FF90"
+                        android:textSize="19sp" />
+                </RelativeLayout>
 
 
             </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tv_forget_password"

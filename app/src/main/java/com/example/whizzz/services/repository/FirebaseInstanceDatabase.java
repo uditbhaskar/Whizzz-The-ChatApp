@@ -85,6 +85,8 @@ public class FirebaseInstanceDatabase {
     }
 
 
+
+
     public MutableLiveData<DataSnapshot> fetchUserDataCurrent() {
         final MutableLiveData<DataSnapshot> fetchCurrentUserData = new MutableLiveData<>();
 
@@ -141,6 +143,8 @@ public class FirebaseInstanceDatabase {
         });
         return fetchUserChat;
     }
+
+
 
     public MutableLiveData<Boolean> addChatsInDatabase(String senderId, String receiverId, String message, String timestamp) {
         final MutableLiveData<Boolean> successAddChatsDb = new MutableLiveData<>();
