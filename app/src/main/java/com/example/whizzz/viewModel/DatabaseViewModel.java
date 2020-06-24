@@ -28,6 +28,7 @@ public class DatabaseViewModel extends ViewModel {
 
 
 
+
     public DatabaseViewModel() {
         instance = new FirebaseInstanceDatabase();
     }
@@ -83,6 +84,7 @@ public class DatabaseViewModel extends ViewModel {
     public void addIsSeenInDatabase(String isSeen,DataSnapshot dataSnapshot){
         successAddIsSeen = instance.addIsSeenInDatabase(isSeen,dataSnapshot);
     }
+
 
 
 }

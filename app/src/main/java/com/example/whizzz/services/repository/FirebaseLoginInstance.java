@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,5 +41,19 @@ public class FirebaseLoginInstance {
         });
 
         return taskLogin;
+    }
+
+    public MutableLiveData<Task> resetPassword(String email){
+        final MutableLiveData<Task> successResetPassword = new MutableLiveData<>();
+
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                successResetPassword.setValue(task);
+            }
+        });
+
+
+        return successResetPassword;
     }
 }

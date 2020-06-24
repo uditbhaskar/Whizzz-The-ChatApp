@@ -15,15 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.ForgetPasswordActivity"
-            android:windowSoftInputMode="adjustResize">
+        <activity
+            android:name=".view.ui.ForgetPasswordActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".view.ui.MessageActivity">
+        <activity
+            android:name=".view.ui.MessageActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".view.ui.SplashActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,16 +39,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.HomeActivity">
+        <activity android:name=".view.ui.HomeActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
 
         </activity>
         <activity
             android:name=".view.ui.SignupActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity
             android:name=".view.ui.LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
