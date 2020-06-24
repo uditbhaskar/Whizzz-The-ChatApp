@@ -142,12 +142,12 @@ public class FirebaseInstanceDatabase {
         return fetchUserChat;
     }
 
-    public MutableLiveData<Boolean> addChatsInDatabase(String senderId, String receiverId, String message, String timestamp) {
+    public MutableLiveData<Boolean> addChatsInDatabase(String receiverId, String senderId, String message, String timestamp) {
         final MutableLiveData<Boolean> successAddChatsDb = new MutableLiveData<>();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("senderId", senderId);
         hashMap.put("receiverId", receiverId);
+        hashMap.put("senderId", senderId);
         hashMap.put("message", message);
         hashMap.put("timestamp", timestamp);
         hashMap.put("seen", false);

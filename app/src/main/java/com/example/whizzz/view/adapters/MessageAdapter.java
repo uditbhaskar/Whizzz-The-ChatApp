@@ -24,12 +24,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
     private static final int MSG_TYPE_RIGHT_RECEIVED = 1;
     private ArrayList<Chats> chatArrayList;
     private Context context;
-    private String currentUser_received;
+    private String currentUser_sender;
 
-    public MessageAdapter(ArrayList<Chats> chatArrayList, Context context, String currentUser_received) {
+    public MessageAdapter(ArrayList<Chats> chatArrayList, Context context, String currentUser_sender) {
         this.chatArrayList = chatArrayList;
         this.context = context;
-        this.currentUser_received = currentUser_received;
+        this.currentUser_sender = currentUser_sender;
     }
 
 
@@ -102,8 +102,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
 
     @Override
     public int getItemViewType(int position) {
-        if (chatArrayList.get(position).getReceiverId().equals(currentUser_received)) {
-            return MSG_TYPE_RIGHT_RECEIVED;
-        } else return MSG_TYPE_LEFT_RECEIVED;
+        if (chatArrayList.get(position).getReceiverId().equals(currentUser_sender)) {
+            return MSG_TYPE_LEFT_RECEIVED;
+        } else return MSG_TYPE_RIGHT_RECEIVED;
     }
 }
