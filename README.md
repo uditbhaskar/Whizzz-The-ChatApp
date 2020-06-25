@@ -9,7 +9,9 @@
  2. Change package name before importing in the android studio.
  
  # Important 
- **Whenever you change anything thing with database ie, settings, field name, update or delete. Please Reinstall the app and clear all data to avoid crashes.**
+ **1.Whenever you change anything thing with database ie, settings, field name, update or delete. Please Reinstall the app and clear all data to avoid crashes.**
+ **2. Connect to firebase console authentication and database from your IDE **
+ **3. In firebase Storage Rules, change value of "allow read, write:" from "if request.auth != null" to "if true.**
  
  ## Login, SignUp, Forget Password screens.
  
