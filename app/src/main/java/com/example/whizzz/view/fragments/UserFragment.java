@@ -59,7 +59,7 @@ public class UserFragment extends Fragment {
             }
         });
 
-        databaseViewModel.fetchUserNameAll();
+        databaseViewModel.fetchUserByNameAll();
         databaseViewModel.fetchUserNames.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {

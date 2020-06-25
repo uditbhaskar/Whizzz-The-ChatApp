@@ -25,6 +25,7 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<Boolean> successAddStatusInDatabase;
     public LiveData<DataSnapshot> fetchSearchUser;
     public LiveData<Boolean> successAddIsSeen;
+    public LiveData<DataSnapshot> getChaListUserDataSnapshot;
 
 
 
@@ -41,8 +42,8 @@ public class DatabaseViewModel extends ViewModel {
         fetchUserCurrentData = instance.fetchUserDataCurrent();
     }
 
-    public void fetchUserNameAll() {
-        fetchUserNames = instance.fetchAllUserNames();
+    public void fetchUserByNameAll() {
+        fetchUserNames = instance.fetchAllUserByNames();
     }
 
     public void fetchSelectedUserProfileData(String userId) {
@@ -85,6 +86,9 @@ public class DatabaseViewModel extends ViewModel {
         successAddIsSeen = instance.addIsSeenInDatabase(isSeen,dataSnapshot);
     }
 
+    public void getChaListUserDataSnapshot(String currentUserId){
+        getChaListUserDataSnapshot = instance.getChatList(currentUserId);
+    }
 
 
 }

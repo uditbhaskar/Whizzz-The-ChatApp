@@ -60,13 +60,13 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
 
                 if (user_status.contains("online") && isNetworkConnected()) {
                     holder.iv_status_user_list.setBackgroundResource(R.drawable.online_status);
-                } else if (user_status.contains("offline")) {
+                } else {
                     holder.iv_status_user_list.setBackgroundResource(R.drawable.offline_status);
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             holder.iv_status_user_list.setVisibility(View.GONE);
         }
         if (imageUrl.equals("default")) {
