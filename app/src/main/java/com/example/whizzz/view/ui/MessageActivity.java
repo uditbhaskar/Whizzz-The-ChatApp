@@ -49,7 +49,7 @@ public class MessageActivity extends AppCompatActivity {
 
     String chat;
     String timeStamp;
-    String userId_receiver; // userId of other user who'll receive the text
+    String userId_receiver; // userId of other user who'll receive the text // Or the user id of profile currently opened
     String userId_sender;  // current user id
     String user_status;
     MessageAdapter messageAdapter;
@@ -65,7 +65,7 @@ public class MessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         init();
-        getUserIdOfCurrentProfile();
+        getUserIdOfCurrentProfile();  //receiver userId
         getCurrentFirebaseUser();
         fetchAndSaveCurrentProfileTextAndData();
 
@@ -132,7 +132,7 @@ public class MessageActivity extends AppCompatActivity {
                 try {
                     if (user_status.contains("online") && isNetworkConnected()) {
                         iv_user_status_message_view.setBackgroundResource(R.drawable.online_status);
-                    } else if (user_status.contains("offline")) {
+                    } else  {
                         iv_user_status_message_view.setBackgroundResource(R.drawable.offline_status);
                     }
                 } catch (InterruptedException | IOException e) {

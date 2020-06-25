@@ -34,7 +34,7 @@ public class FirebaseInstanceDatabase {
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
 
-    public MutableLiveData<DataSnapshot> fetchAllUserNames() {
+    public MutableLiveData<DataSnapshot> fetchAllUserByNames() {
         final MutableLiveData<DataSnapshot> fetchAllUSerName = new MutableLiveData<>();
 
         instance.getReference("Users").orderByChild("username").addValueEventListener(new ValueEventListener() {
@@ -164,8 +164,68 @@ public class FirebaseInstanceDatabase {
             }
         });
 
+        //creating chatList in database for better performance in chatListFragment .
+
+        DatabaseReference chatRef = instance.getReference("ChatList")
+                .child(senderId)
+                .child(receiverId);
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatRef.child("id").setValue(receiverId);
+                    chatRef.child("timestamp").setValue(timestamp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        DatabaseReference chatRef2 = instance.getReference("ChatList")
+                .child(receiverId)
+                .child(senderId);
+
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatRef2.child("id").setValue(senderId);
+                    chatRef2.child("timestamp").setValue(timestamp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         return successAddChatsDb;
     }
+
+    public MutableLiveData<DataSnapshot> getChatList(String currentUserId){
+        final MutableLiveData<DataSnapshot> getChatLists = new MutableLiveData<>();
+        DatabaseReference chatRef = instance.getReference("ChatList")
+                .child(firebaseUser.getUid());
+        chatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                getChatLists.setValue(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return getChatLists;
+    }
+
 
     public MutableLiveData<Boolean> addIsSeenInDatabase(String isSeen, DataSnapshot dataSnapshot) {
         final MutableLiveData<Boolean> successAddIsSeen = new MutableLiveData<>();

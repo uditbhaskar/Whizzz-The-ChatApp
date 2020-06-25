@@ -1,14 +1,12 @@
 package com.example.whizzz.view.fragments;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whizzz.R;
-import com.example.whizzz.services.model.Chats;
+import com.example.whizzz.services.model.ChatList;
 import com.example.whizzz.services.model.Users;
 import com.example.whizzz.view.adapters.UserFragmentAdapter;
 import com.example.whizzz.viewModel.DatabaseViewModel;
@@ -32,7 +30,7 @@ public class ChatFragment extends Fragment {
     private ArrayList<Users> mUsers;
     private String currentUserId;
     RelativeLayout relative_layout_chat_fragment;
-    private ArrayList<String> userList; //list of all other users with chat record
+    private ArrayList<ChatList> userList;  //list of all other users with chat record
     private DatabaseViewModel databaseViewModel;
     private RecyclerView recyclerView_chat_fragment;
 
@@ -60,64 +58,52 @@ public class ChatFragment extends Fragment {
             }
         });
 
-        databaseViewModel.fetchChatUser();
-        databaseViewModel.fetchedChat.observe(this, new Observer<DataSnapshot>() {
+        databaseViewModel.getChaListUserDataSnapshot(currentUserId);
+        databaseViewModel.getChaListUserDataSnapshot.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
-                userList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Chats chats = snapshot.getValue(Chats.class);
-
-
-                    assert chats != null;
-                    if (chats.getSenderId().equals(currentUserId)) {
-                        userList.add(chats.getReceiverId());
-                    }
-                    if (chats.getReceiverId().equals(currentUserId)) {
-                        userList.add(chats.getSenderId());
-                    }
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    ChatList chatList = dataSnapshot1.getValue(ChatList.class);
+                    userList.add(chatList);
                 }
-                ChatListOfUsers();
+
+                chatLists();
             }
-
-
         });
 
 
     }
 
-
-    private void updateToken(String tokens){
-
-    }
-
-    private void ChatListOfUsers() {
-        databaseViewModel.fetchUserNameAll();
+    private void chatLists() {
+        databaseViewModel.fetchUserByNameAll();
         databaseViewModel.fetchUserNames.observe(this, new Observer<DataSnapshot>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
                 mUsers.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Users users = snapshot.getValue(Users.class);
-
-                    for (String id : userList) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    Users users = dataSnapshot1.getValue(Users.class);
+                    for (ChatList chatList : userList) {
                         assert users != null;
-                        if (users.getId().equals(id)) {
-                            if(!mUsers.contains(users)) {
-                                mUsers.add(users);
-                            }
+                        if (users.getId().equals(chatList.getId())) {
+                            if(!mUsers.contains(users))
+                            mUsers.add(users);
                         }
                     }
-
                 }
-                if(mUsers.size()>=1){
+                if(mUsers.size()<1){
+                    relative_layout_chat_fragment.setVisibility(View.VISIBLE);
+                }else {
                     relative_layout_chat_fragment.setVisibility(View.GONE);
                 }
-                userAdapter = new UserFragmentAdapter(mUsers, context,true);
+
+                userAdapter = new UserFragmentAdapter(mUsers, context, true);
                 recyclerView_chat_fragment.setAdapter(userAdapter);
             }
         });
+    }
+
+
+    private void updateToken(String tokens) {
 
     }
 
