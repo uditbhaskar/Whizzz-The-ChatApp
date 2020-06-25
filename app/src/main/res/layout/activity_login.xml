@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminateTint="#fff"
+            android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -183,28 +184,46 @@
 
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tv_forget_password"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linear_login"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="15dp"
-                android:background="@drawable/forgot_password_bg"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/kaushan"
-                android:gravity="center_horizontal"
-                android:paddingStart="0dp"
-                android:paddingTop="5dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="4dp"
-                android:text="@string/forgot_your_password"
-                android:textColor="#63FF90"
-                android:textSize="16.5sp" />
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="15dp">
+                <View
+                    android:id="@+id/view_a"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:background="#727180"
+                    android:layout_alignParentTop="true"/>
+                <TextView
+                    android:id="@+id/tv_forget_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/view_a"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/kaushan"
+                    android:gravity="center_horizontal"
+                    android:paddingStart="0dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/forgot_your_password"
+                    android:textColor="#63FF90"
+                    android:textSize="16.5sp" />
+                <View
+                    android:layout_below="@+id/tv_forget_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:background="#727180"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+
         </RelativeLayout>
 
     </ScrollView>

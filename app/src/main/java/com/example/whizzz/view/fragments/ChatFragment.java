@@ -77,7 +77,7 @@ public class ChatFragment extends Fragment {
                         userList.add(chats.getSenderId());
                     }
                 }
-                readChats();
+                ChatListOfUsers();
             }
 
 
@@ -91,7 +91,7 @@ public class ChatFragment extends Fragment {
 
     }
 
-    private void readChats() {
+    private void ChatListOfUsers() {
         databaseViewModel.fetchUserNameAll();
         databaseViewModel.fetchUserNames.observe(this, new Observer<DataSnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
