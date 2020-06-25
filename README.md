@@ -5,7 +5,7 @@
  
   ## Implementation guide :-
  
- 1. Add your google-services.json and change Authorization key with your key from firebase project.
+ 1. Add your google-services.json and change Authorization key with your key from your firebase project.
  2. Change package name before importing in the android studio.
  
  # Important 
