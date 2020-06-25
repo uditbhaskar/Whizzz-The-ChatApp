@@ -17,11 +17,11 @@
  
  With animations on both login and signup screens.
  
- <img src="https://user-images.githubusercontent.com/39986507/85724950-4d284300-b712-11ea-87ec-827502c4b5ee.png" width="280">   <img src="https://user-images.githubusercontent.com/39986507/85724953-4dc0d980-b712-11ea-86cf-9ed6c281f05f.png" width="280"> <img src="https://user-images.githubusercontent.com/39986507/85724942-4bf71600-b712-11ea-804a-85a99bd5fc56.png" width="280">
+ <img src="https://user-images.githubusercontent.com/39986507/85724950-4d284300-b712-11ea-87ec-827502c4b5ee.png" width="280">  <img src="https://user-images.githubusercontent.com/39986507/85731194-edcd3180-b717-11ea-8b2b-f19290ef5007.png" width="280">   <img src="https://user-images.githubusercontent.com/39986507/85724942-4bf71600-b712-11ea-804a-85a99bd5fc56.png" width="280">
  
  ## Empty ChatList screen , Splash screen
  
- <img src="https://user-images.githubusercontent.com/39986507/85730276-291b3080-b717-11ea-9f38-7073c5817ccf.jpg" width="280">  <img src="https://user-images.githubusercontent.com/39986507/85731194-edcd3180-b717-11ea-8b2b-f19290ef5007.png" width="280">
+ <img src="https://user-images.githubusercontent.com/39986507/85730276-291b3080-b717-11ea-9f38-7073c5817ccf.jpg" width="280">  <img src="https://user-images.githubusercontent.com/39986507/85724953-4dc0d980-b712-11ea-86cf-9ed6c281f05f.png" width="280"> 
  
  
  ## Users, Profile, ChatsList screens, 
