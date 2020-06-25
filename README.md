@@ -33,6 +33,9 @@
  
  <img src="https://user-images.githubusercontent.com/39986507/85725801-17378e80-b713-11ea-8d18-c79e6b0aa277.png" width="250">   <img src="https://user-images.githubusercontent.com/39986507/85725794-16066180-b713-11ea-828c-92e350b54879.png" width="250"> <img src="https://user-images.githubusercontent.com/39986507/85725798-169ef800-b713-11ea-9f7c-523cecf91239.png" width="250">
  
+ ## Note:-
+ **If anyone wants the apk file, create an issue.**
+ 
 
  
  
