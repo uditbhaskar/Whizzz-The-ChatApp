@@ -9,7 +9,7 @@
  2. Change package name before importing in the android studio.
  
  # Important 
- **1.Whenever you change anything thing with database ie, settings, field name, update or delete. Please Reinstall the app and clear all data to avoid crashes.**
+ **1. Whenever you change anything thing with database ie, settings, field name, update or delete. Please Reinstall the app and clear all data to avoid crashes.**
  
  **2. Connect to firebase console authentication and databse from your ide.** 
  
