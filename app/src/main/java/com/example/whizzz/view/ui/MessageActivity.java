@@ -249,20 +249,20 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
-    private void status(String status) {
+    private void addStatusInDatabase(String status) {
         databaseViewModel.addStatusInDatabase("status", status);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        status("online");
+        addStatusInDatabase("online");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        status("offline");
+        addStatusInDatabase("offline");
     }
 
 
