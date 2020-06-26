@@ -1,7 +1,9 @@
 package com.example.whizzz.view.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,12 @@ import com.example.whizzz.services.model.ChatList;
 import com.example.whizzz.services.model.Users;
 import com.example.whizzz.view.adapters.UserFragmentAdapter;
 import com.example.whizzz.viewModel.DatabaseViewModel;
+import com.example.whizzz.viewModel.LogInViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -29,10 +36,11 @@ public class ChatFragment extends Fragment {
     private UserFragmentAdapter userAdapter;
     private ArrayList<Users> mUsers;
     private String currentUserId;
-    RelativeLayout relative_layout_chat_fragment;
     private ArrayList<ChatList> userList;  //list of all other users with chat record
     private DatabaseViewModel databaseViewModel;
+    private LogInViewModel logInViewModel;
     private RecyclerView recyclerView_chat_fragment;
+    RelativeLayout relative_layout_chat_fragment;
 
     public ChatFragment(Context context) {
         this.context = context;
@@ -44,8 +52,22 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chats, container, false);
         init(view);
         fetchAllChat();
+        getTokens();
+
+
         return view;
     }
+
+   public void getTokens() {
+       FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener((Activity) context, new OnSuccessListener<InstanceIdResult>() {
+           @Override
+           public void onSuccess(InstanceIdResult instanceIdResult) {
+               String mToken = instanceIdResult.getToken();
+               updateToken(mToken); //updating token in firebase database
+
+           }
+       });
+   }
 
     private void fetchAllChat() {
         databaseViewModel.fetchingUserDataCurrent();
@@ -103,8 +125,8 @@ public class ChatFragment extends Fragment {
     }
 
 
-    private void updateToken(String tokens) {
-
+    private void updateToken(String token) {
+        logInViewModel.updateToken(token);
     }
 
 
@@ -112,6 +134,11 @@ public class ChatFragment extends Fragment {
         databaseViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
                 .getInstance(Objects.requireNonNull(getActivity()).getApplication()))
                 .get(DatabaseViewModel.class);
+
+        logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
+                .getInstance(Objects.requireNonNull(getActivity()).getApplication()))
+                .get(LogInViewModel.class);
+
         relative_layout_chat_fragment = view.findViewById(R.id.relative_layout_chat_fragment);
         recyclerView_chat_fragment = view.findViewById(R.id.recycler_view_chat_fragment);
         recyclerView_chat_fragment.setLayoutManager(new LinearLayoutManager(context));
