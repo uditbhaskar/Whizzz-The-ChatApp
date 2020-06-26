@@ -68,7 +68,7 @@ public class FirebaseInstanceDatabase {
     }
 
     public MutableLiveData<DataSnapshot> fetchSelectedUserIdData(String userId) {
-        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MediatorLiveData<>();
+        final MutableLiveData<DataSnapshot> fetchSelectedUserIDData = new MutableLiveData<>();
 
         instance.getReference("Users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -84,6 +84,15 @@ public class FirebaseInstanceDatabase {
         return fetchSelectedUserIDData;
     }
 
+    public MutableLiveData<DatabaseReference> getTokenRef() {
+        final MutableLiveData<DatabaseReference> getTokenReference = new MutableLiveData<>();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        getTokenReference.setValue(reference);
+
+
+        return getTokenReference;
+    }
 
     public MutableLiveData<DataSnapshot> fetchUserDataCurrent() {
         final MutableLiveData<DataSnapshot> fetchCurrentUserData = new MutableLiveData<>();
@@ -173,7 +182,7 @@ public class FirebaseInstanceDatabase {
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
+                if (!dataSnapshot.exists()) {
                     chatRef.child("id").setValue(receiverId);
                     chatRef.child("timestamp").setValue(timestamp);
                 }
@@ -192,7 +201,7 @@ public class FirebaseInstanceDatabase {
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
+                if (!dataSnapshot.exists()) {
                     chatRef2.child("id").setValue(senderId);
                     chatRef2.child("timestamp").setValue(timestamp);
                 }
@@ -207,7 +216,7 @@ public class FirebaseInstanceDatabase {
         return successAddChatsDb;
     }
 
-    public MutableLiveData<DataSnapshot> getChatList(String currentUserId){
+    public MutableLiveData<DataSnapshot> getChatList(String currentUserId) {
         final MutableLiveData<DataSnapshot> getChatLists = new MutableLiveData<>();
         DatabaseReference chatRef = instance.getReference("ChatList")
                 .child(firebaseUser.getUid());

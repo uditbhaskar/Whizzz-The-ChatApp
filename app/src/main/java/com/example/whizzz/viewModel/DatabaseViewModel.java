@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.whizzz.services.repository.FirebaseInstanceDatabase;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
 
 public class DatabaseViewModel extends ViewModel {
@@ -26,6 +27,7 @@ public class DatabaseViewModel extends ViewModel {
     public LiveData<DataSnapshot> fetchSearchUser;
     public LiveData<Boolean> successAddIsSeen;
     public LiveData<DataSnapshot> getChaListUserDataSnapshot;
+    public LiveData<DatabaseReference> getTokenRefDb;
 
 
 
@@ -88,6 +90,10 @@ public class DatabaseViewModel extends ViewModel {
 
     public void getChaListUserDataSnapshot(String currentUserId){
         getChaListUserDataSnapshot = instance.getChatList(currentUserId);
+    }
+
+    public void getTokenDatabaseRef(){
+        getTokenRefDb = instance.getTokenRef();
     }
 
 

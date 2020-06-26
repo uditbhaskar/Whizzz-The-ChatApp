@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,17 +19,30 @@ import com.bumptech.glide.Glide;
 import com.example.whizzz.R;
 import com.example.whizzz.services.model.Chats;
 import com.example.whizzz.services.model.Users;
+import com.example.whizzz.services.notifications.Client;
+import com.example.whizzz.services.notifications.Data;
+import com.example.whizzz.services.notifications.MyResponse;
+import com.example.whizzz.services.notifications.Sender;
+import com.example.whizzz.services.notifications.Token;
 import com.example.whizzz.view.adapters.MessageAdapter;
+import com.example.whizzz.view.fragments.APIService;
 import com.example.whizzz.view.fragments.BottomSheetProfileDetailUser;
 import com.example.whizzz.viewModel.DatabaseViewModel;
 import com.example.whizzz.viewModel.LogInViewModel;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
     LogInViewModel logInViewModel;
@@ -58,14 +72,18 @@ public class MessageActivity extends AppCompatActivity {
     Context context;
     BottomSheetProfileDetailUser bottomSheetProfileDetailUser;
 
+    APIService apiService;
+    boolean notify = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+        userId_receiver = getIntent().getStringExtra("userid");
+
         init();
-        getUserIdOfCurrentProfile();  //receiver userId
         getCurrentFirebaseUser();
         fetchAndSaveCurrentProfileTextAndData();
 
@@ -81,6 +99,8 @@ public class MessageActivity extends AppCompatActivity {
         btn_sendIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
+
                 chat = et_chat.getText().toString();
                 if (!chat.equals("")) {
                     addChatInDataBase();
@@ -110,13 +130,12 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void getUserIdOfCurrentProfile() {
-        userId_receiver = getIntent().getStringExtra("userid");
-        // userId of other user who"ll receive the message
-    }
+
 
     private void fetchAndSaveCurrentProfileTextAndData() {
-
+        if(userId_receiver == null){
+            userId_receiver=  getIntent().getStringExtra("userId");
+        }
         databaseViewModel.fetchSelectedUserProfileData(userId_receiver);
         databaseViewModel.fetchSelectedProfileUserData.observe(this, new Observer<DataSnapshot>() {
             @Override
@@ -132,7 +151,7 @@ public class MessageActivity extends AppCompatActivity {
                 try {
                     if (user_status.contains("online") && isNetworkConnected()) {
                         iv_user_status_message_view.setBackgroundResource(R.drawable.online_status);
-                    } else  {
+                    } else {
                         iv_user_status_message_view.setBackgroundResource(R.drawable.offline_status);
                     }
                 } catch (InterruptedException | IOException e) {
@@ -152,17 +171,17 @@ public class MessageActivity extends AppCompatActivity {
         addIsSeen();
     }
 
-    public void addIsSeen(){
-        String isSeen="seen";
+    public void addIsSeen() {
+        String isSeen = "seen";
         databaseViewModel.fetchChatUser();
         databaseViewModel.fetchedChat.observe(this, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Chats chats = dataSnapshot1.getValue(Chats.class);
                     assert chats != null;
-                    if(chats.getSenderId().equals(userId_receiver) && chats.getReceiverId().equals(userId_sender)){
-                        databaseViewModel.addIsSeenInDatabase(isSeen,dataSnapshot1);
+                    if (chats.getSenderId().equals(userId_receiver) && chats.getReceiverId().equals(userId_sender)) {
+                        databaseViewModel.addIsSeenInDatabase(isSeen, dataSnapshot1);
                     }
                 }
 
@@ -213,6 +232,67 @@ public class MessageActivity extends AppCompatActivity {
                 }
             }
         });
+
+        final String msg = chat;
+        databaseViewModel.fetchingUserDataCurrent();
+        databaseViewModel.fetchUserCurrentData.observe(this, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(DataSnapshot dataSnapshot) {
+                Users users = dataSnapshot.getValue(Users.class);
+                assert users != null;
+                if (notify) {
+                    sendNotification(userId_receiver, users.getUsername(), msg);
+
+                }
+                notify = false;
+            }
+        });
+    }
+
+    private void sendNotification(String userId_receiver, String username, String msg) {
+        databaseViewModel.getTokenDatabaseRef();
+        databaseViewModel.getTokenRefDb.observe(this, new Observer<DatabaseReference>() {
+            @Override
+            public void onChanged(DatabaseReference databaseReference) {
+                Query query = databaseReference.orderByKey().equalTo(userId_receiver);
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Token token = snapshot.getValue(Token.class);
+                            Data data = new Data(userId_sender, String.valueOf(R.mipmap.ic_launcher_round), username + ": " + msg, "New Message", userId_receiver);
+
+                            assert token != null;
+                            Sender sender = new Sender(data, token.getToken());
+
+                            apiService.sendNotification(sender)
+                                    .enqueue(new Callback<MyResponse>() {
+                                        @Override
+                                        public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                                            if (response.code() == 200) {
+                                                assert response.body() != null;
+                                                if (response.body().success != 1) {
+                                                    Toast.makeText(MessageActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<MyResponse> call, Throwable t) {
+
+                                        }
+                                    });
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
     }
 
 
@@ -222,6 +302,8 @@ public class MessageActivity extends AppCompatActivity {
         logInViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()))
                 .get(LogInViewModel.class);
         context = MessageActivity.this;
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         iv_user_status_message_view = findViewById(R.id.iv_user_status_message_view);
         iv_profile_image = findViewById(R.id.iv_user_image);
