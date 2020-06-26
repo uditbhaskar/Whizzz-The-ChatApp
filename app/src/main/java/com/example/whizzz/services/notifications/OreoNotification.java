@@ -7,10 +7,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+
+import com.example.whizzz.R;
 
 public class OreoNotification extends ContextWrapper {
 
@@ -54,7 +57,9 @@ public class OreoNotification extends ContextWrapper {
                 .setContentIntent(pendingIntent)
                 .setContentTitle(title)
                 .setContentText(body)
-                .setSmallIcon(Integer.parseInt(icon))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                        R.mipmap.ic_launcher))
                 .setSound(uri)
                 .setAutoCancel(true);
 

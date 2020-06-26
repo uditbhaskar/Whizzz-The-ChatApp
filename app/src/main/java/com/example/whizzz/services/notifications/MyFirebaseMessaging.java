@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.location.OnNmeaMessageListener;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.lifecycle.ViewModelStoreOwner;
 
+import com.example.whizzz.R;
 import com.example.whizzz.view.ui.HomeActivity;
 import com.example.whizzz.view.ui.MessageActivity;
 import com.example.whizzz.viewModel.LogInViewModel;
@@ -132,7 +134,9 @@ public class MyFirebaseMessaging extends FirebaseMessagingService implements Lif
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         assert icon != null;
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(Integer.parseInt(icon))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
+                        R.mipmap.ic_launcher))
                 .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)

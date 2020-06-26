@@ -260,7 +260,7 @@ public class MessageActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Token token = snapshot.getValue(Token.class);
-                            Data data = new Data(userId_sender, String.valueOf(R.mipmap.ic_launcher_round), username + ": " + msg, "New Message", userId_receiver);
+                            Data data = new Data(userId_sender, String.valueOf(R.drawable.ic_baseline_textsms_24), username + ": " + msg, "New Message", userId_receiver);
 
                             assert token != null;
                             Sender sender = new Sender(data, token.getToken());
