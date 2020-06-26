@@ -3,7 +3,7 @@
  This is a realtime one to one chat app made using Firebase and the code implementation is done using MVVM architecture, beautiful UI and equipped with push notification.
  
  
-  ## Implementation guide :-
+  ## Guidelines for implementation :-
  
  1. Add your google-services.json and change Authorization key with your key from your firebase project.
  2. Change package name before importing in the android studio.
