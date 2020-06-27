@@ -1,6 +1,7 @@
 package com.example.whizzz.view.ui;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -331,6 +332,13 @@ public class MessageActivity extends AppCompatActivity {
 
     }
 
+    private void currentUser(String userid){
+        SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+        editor.putString("currentuser", userid);
+        editor.apply();
+    }
+
+
     private void addStatusInDatabase(String status) {
         databaseViewModel.addStatusInDatabase("status", status);
     }
@@ -339,12 +347,14 @@ public class MessageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         addStatusInDatabase("online");
+        currentUser(userId_receiver);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         addStatusInDatabase("offline");
+        currentUser("none");
     }
 
 
