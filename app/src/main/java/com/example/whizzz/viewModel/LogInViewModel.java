@@ -34,17 +34,12 @@ public class LogInViewModel extends ViewModel {
         firebaseAuthLiveData = loginInstance.getFirebaseAuth();
     }
 
-    public void addPasswordResetEmail(String email){
+    public void addPasswordResetEmail(String email) {
         successPasswordReset = loginInstance.resetPassword(email);
     }
 
-    public void updateToken(String newToken){
+    public void updateToken(String newToken) {
         successUpdateToken = loginInstance.successUpdateToken(newToken);
     }
-
-    public void getNewToken(){
-
-    }
-
 
 }
