@@ -322,18 +322,25 @@ public class FirebaseInstanceDatabase {
 
     public MutableLiveData<Boolean> addStatusInDatabase(String statusUpdated, Object status) {
         final MutableLiveData<Boolean> successAddStatus = new MutableLiveData<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        String id=firebaseUser.getUid();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         HashMap<String, Object> map = new HashMap<>();
         map.put(statusUpdated, status);
 
-        reference.updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                successAddStatus.setValue(true);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ref.child(id).updateChildren(map);
+                    successAddStatus.setValue(true);
+                } else {
+
+                    successAddStatus.setValue(false);
+                }
             }
-        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 successAddStatus.setValue(false);
             }
         });
