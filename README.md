@@ -1,6 +1,6 @@
 # Whizzz-The ChatApp
  
- This is a realtime one to one chat app made using Firebase and the code implementation is done using MVVM architecture, beautiful UI and equipped with push notification for incoming texts.
+ This is a realtime one to one chat app made using Firebase, beautiful UI and equipped with push notification for incoming texts.
  
  
   ## Guidelines for implementation :-
