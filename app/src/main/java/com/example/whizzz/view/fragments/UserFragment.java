@@ -48,6 +48,7 @@ public class UserFragment extends Fragment {
     }
 
 
+
     private void fetchingAllUserNAme() {
         databaseViewModel.fetchingUserDataCurrent();
         databaseViewModel.fetchUserCurrentData.observe(this, new Observer<DataSnapshot>() {
@@ -105,34 +106,41 @@ public class UserFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                searchUsers(s.toString().toLowerCase());
+                    searchUsers(s.toString().toLowerCase());
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (et_search.getText().toString().startsWith(" "))
+                    et_search.setText("");
             }
         });
 
     }
 
     private void searchUsers(String searchText) {
-        databaseViewModel.fetchSearchedUser(searchText);
-        databaseViewModel.fetchSearchUser.observe(this, new Observer<DataSnapshot>() {
-            @Override
-            public void onChanged(DataSnapshot dataSnapshot) {
-                mUSer.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Users users = snapshot.getValue(Users.class);
-                    assert users != null;
-                    if (!users.getId().equals(currentUserId)) {
-                        mUSer.add(users);
+
+        if (!(searchText.isEmpty() && searchText.equals(""))) {
+            databaseViewModel.fetchSearchedUser(searchText);
+            databaseViewModel.fetchSearchUser.observe(this, new Observer<DataSnapshot>() {
+                @Override
+                public void onChanged(DataSnapshot dataSnapshot) {
+                    mUSer.clear();
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Users users = snapshot.getValue(Users.class);
+                        assert users != null;
+                        if (!users.getId().equals(currentUserId)) {
+                            mUSer.add(users);
+                        }
+
                     }
+                    userFragmentAdapter = new UserFragmentAdapter(mUSer, context, false);
+                    recyclerView.setAdapter(userFragmentAdapter);
 
                 }
-                userFragmentAdapter = new UserFragmentAdapter(mUSer, context, false);
-                recyclerView.setAdapter(userFragmentAdapter);
-            }
-        });
+            });
+        }else {
+            fetchingAllUserNAme();
+        }
     }
 }
