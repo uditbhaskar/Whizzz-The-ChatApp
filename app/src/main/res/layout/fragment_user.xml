@@ -18,6 +18,7 @@
         android:background="@drawable/background_edit_text_search"
         android:hint="@string/search"
         android:paddingStart="15dp"
+        android:focusedByDefault="true"
         android:paddingEnd="10dp"
         android:textColor="@color/black"
         android:textColorHint="#797B7E"
