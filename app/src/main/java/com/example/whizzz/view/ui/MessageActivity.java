@@ -273,7 +273,7 @@ public class MessageActivity extends AppCompatActivity {
                                             if (response.code() == 200) {
                                                 assert response.body() != null;
                                                 if (response.body().success != 1) {
-                                                    Toast.makeText(MessageActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+
                                                 }
                                             }
                                         }
