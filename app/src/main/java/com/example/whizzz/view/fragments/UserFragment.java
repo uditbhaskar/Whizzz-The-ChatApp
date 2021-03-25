@@ -69,9 +69,12 @@ public class UserFragment extends Fragment {
                         Users user = snapshot.getValue(Users.class);
 
                         assert user != null;
-                        if (!currentUserId.equals(user.getId())) {
-                            mUSer.add(user);
+                        if (!(user.getEmailId() == null)
+                        ) {
+                            if (!currentUserId.equals(user.getId())) {
+                                mUSer.add(user);
 
+                            }
                         }
                         userFragmentAdapter = new UserFragmentAdapter(mUSer, context, false);
                         recyclerView.setAdapter(userFragmentAdapter);
@@ -121,7 +124,6 @@ public class UserFragment extends Fragment {
                 mUSer.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Users users = snapshot.getValue(Users.class);
-
                     assert users != null;
                     if (!users.getId().equals(currentUserId)) {
                         mUSer.add(users);
