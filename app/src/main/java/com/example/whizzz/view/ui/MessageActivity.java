@@ -102,7 +102,7 @@ public class MessageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 notify = true;
 
-                chat = et_chat.getText().toString();
+                chat = et_chat.getText().toString().trim();
                 if (!chat.equals("")) {
                     addChatInDataBase();
                 } else {
