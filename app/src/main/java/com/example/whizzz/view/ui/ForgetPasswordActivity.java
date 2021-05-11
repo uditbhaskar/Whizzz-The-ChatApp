@@ -43,52 +43,41 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private void listeners() {
         final AlphaAnimation buttonClick = new AlphaAnimation(1F, 0.8F);
 
-        iv_back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+        iv_back_button.setOnClickListener(v -> finish());
+
+        btn_reset.setOnClickListener(v -> {
+            String email = et_email_to_reset.getText().toString().trim();
+            et_email_to_reset.clearFocus();
+            v.startAnimation(buttonClick);
+            dismissKeyboard();
+
+            if(email.isEmpty()){
+                et_email_to_reset.setError("Please enter your authorised Email Id.");
+                Toast.makeText(ForgetPasswordActivity.this, "Field is empty", Toast.LENGTH_SHORT).show();
+                et_email_to_reset.requestFocus();
+            }else{
+                et_email_to_reset.setClickable(false);
+                resetPassword(email);
             }
-        });
 
-        btn_reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = et_email_to_reset.getText().toString().trim();
-                et_email_to_reset.clearFocus();
-                v.startAnimation(buttonClick);
-                dismissKeyboard();
-
-                if(email.isEmpty()){
-                    et_email_to_reset.setError("Please enter your authorised Email Id.");
-                    Toast.makeText(ForgetPasswordActivity.this, "Field is empty", Toast.LENGTH_SHORT).show();
-                    et_email_to_reset.requestFocus();
-                }else{
-                    et_email_to_reset.setClickable(false);
-                    resetPassword(email);
-                }
-
-            }
         });
     }
 
     private void resetPassword(String email) {
         logInViewModel.addPasswordResetEmail(email);
-        logInViewModel.successPasswordReset.observe(this, new Observer<Task>() {
-            @Override
-            public void onChanged(Task task) {
-                if(!task.isSuccessful()){
-                    et_email_to_reset.setClickable(true);
-                    et_email_to_reset.setText("");
-                    String error= Objects.requireNonNull(task.getException()).getMessage();
-                    et_email_to_reset.requestFocus();
-                    Toast.makeText(ForgetPasswordActivity.this, error, Toast.LENGTH_SHORT).show();
+        logInViewModel.successPasswordReset.observe(this, task -> {
+            if(!task.isSuccessful()){
+                et_email_to_reset.setClickable(true);
+                et_email_to_reset.setText("");
+                String error= Objects.requireNonNull(task.getException()).getMessage();
+                et_email_to_reset.requestFocus();
+                Toast.makeText(ForgetPasswordActivity.this, error, Toast.LENGTH_SHORT).show();
 
-                }else{
-                    Toast.makeText(ForgetPasswordActivity.this, "Please check your Email.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+            }else{
+                Toast.makeText(ForgetPasswordActivity.this, "Please check your Email.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

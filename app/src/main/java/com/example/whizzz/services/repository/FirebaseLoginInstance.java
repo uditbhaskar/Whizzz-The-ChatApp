@@ -19,6 +19,7 @@ public class FirebaseLoginInstance {
     private FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
 
+
     public MutableLiveData<FirebaseUser> getFirebaseUserLoginStatus() {
         final MutableLiveData<FirebaseUser> firebaseUserLoginStatus = new MutableLiveData<>();
         firebaseUserLoginStatus.setValue(firebaseUser);

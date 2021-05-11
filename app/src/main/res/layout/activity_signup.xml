@@ -131,7 +131,6 @@
                 android:layout_marginEnd="25dp"
                 android:layout_marginStart="25dp"
                 android:autofillHints=""
-                android:background="@drawable/background_edit_text"
                 android:drawableStart="@drawable/ic_lock_outline_black_24dp"
                 android:drawablePadding="30dp"
                 android:hint="@string/password"

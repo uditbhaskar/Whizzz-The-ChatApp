@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class FirebaseInstanceDatabase {
-    private FirebaseDatabase instance = FirebaseDatabase.getInstance();
+        private FirebaseDatabase instance = FirebaseDatabase.getInstance();
     private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
