@@ -17,7 +17,7 @@
  
  ## Login, Splash , SignUp screen.
  
- With animations on both login and signup screens.
+ > With animations on both login and signup screens.
  
  <img src="https://user-images.githubusercontent.com/39986507/85724950-4d284300-b712-11ea-87ec-827502c4b5ee.png" width="250">  <img src="https://user-images.githubusercontent.com/39986507/85731194-edcd3180-b717-11ea-8b2b-f19290ef5007.png" width="250">   <img src="https://user-images.githubusercontent.com/39986507/85724942-4bf71600-b712-11ea-804a-85a99bd5fc56.png" width="250">
  
