@@ -110,5 +110,5 @@ fastlane/test_output/
 # --- JVM / profiling ---
 *.hprof
 
-# google-services.json — keep tracked for team builds; uncomment for public repos only:
-# app/google-services.json
+# Firebase Android config (project keys / identifiers — do not commit)
+**/google-services.json
