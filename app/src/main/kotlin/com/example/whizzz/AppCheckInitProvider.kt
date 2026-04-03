@@ -11,16 +11,18 @@ import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 
 /**
- * Runs **after** [com.google.firebase.provider.FirebaseInitProvider] (initOrder 99 &lt; 100).
- *
- * Play Integrity is used only when [BuildConfig.DEBUG] is false, the Gradle flag allows it, and the
- * process is not debuggable. Otherwise, the App Check **debug** provider is used — you must register
- * that token in Firebase Console or protected APIs keep failing.
- *
+ * Runs after [com.google.firebase.provider.FirebaseInitProvider] (initOrder 99 &lt; 100).
+ * Chooses Play Integrity or the debug App Check provider from build type and process flags.
  * @author udit
  */
 class AppCheckInitProvider : ContentProvider() {
 
+    /**
+     * Installs the appropriate App Check provider factory on [FirebaseAppCheck].
+     *
+     * @return False when context is null; otherwise true after installing a provider factory.
+     * @author udit
+     */
     override fun onCreate(): Boolean {
         val ctx = context ?: return false
         val appCheck = FirebaseAppCheck.getInstance()
@@ -45,6 +47,17 @@ class AppCheckInitProvider : ContentProvider() {
         return true
     }
 
+    /**
+     * Unused; this provider only runs [onCreate].
+     *
+     * @param uri Request uri.
+     * @param projection Projected columns.
+     * @param selection SQL selection.
+     * @param selectionArgs Selection arguments.
+     * @param sortOrder Sort order.
+     * @return Always null.
+     * @author udit
+     */
     override fun query(
         uri: Uri,
         projection: Array<out String>?,
@@ -53,12 +66,38 @@ class AppCheckInitProvider : ContentProvider() {
         sortOrder: String?,
     ): Cursor? = null
 
+    /**
+     * @param uri Request uri.
+     * @return Always null.
+     * @author udit
+     */
     override fun getType(uri: Uri): String? = null
 
+    /**
+     * @param uri Request uri.
+     * @param values Row values.
+     * @return Always null.
+     * @author udit
+     */
     override fun insert(uri: Uri, values: ContentValues?): Uri? = null
 
+    /**
+     * @param uri Request uri.
+     * @param selection SQL selection.
+     * @param selectionArgs Selection arguments.
+     * @return Always 0.
+     * @author udit
+     */
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int = 0
 
+    /**
+     * @param uri Request uri.
+     * @param values Row values.
+     * @param selection SQL selection.
+     * @param selectionArgs Selection arguments.
+     * @return Always 0.
+     * @author udit
+     */
     override fun update(
         uri: Uri,
         values: ContentValues?,

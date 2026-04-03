@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.PICK" />
+            <data android:mimeType="image/*" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.GET_CONTENT" />
+            <data android:mimeType="image/*" />
+        </intent>
+    </queries>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:name=".WhizzzApplication"
@@ -16,7 +38,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="false">
+        android:usesCleartextTraffic="false"
+        tools:targetApi="33">
         <!-- Lower initOrder than FirebaseInitProvider (~100) so FirebaseApp exists before App Check. -->
         <provider
             android:name=".AppCheckInitProvider"
@@ -42,5 +65,19 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            tools:node="remove" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>

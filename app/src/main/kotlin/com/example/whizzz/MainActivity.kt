@@ -4,22 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.whizzz.navigation.WhizzzApp
 import com.example.whizzz.splash.SplashViewModel
-import dagger.hilt.android.AndroidEntryPoint
-
-/**
- * Single-activity host for Compose navigation.
- *
- * @author udit
- */
-@AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : ComponentActivity() {
 
-    private val splashViewModel: SplashViewModel by viewModels()
+    private val splashViewModel: SplashViewModel by viewModel()
 
+    /**
+     * Installs splash retention, enables edge-to-edge, and sets [WhizzzApp] as content.
+     *
+     * @param savedInstanceState Activity restored state, if any.
+     * @author udit
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         val splashScreen = installSplashScreen()
         enableEdgeToEdge()

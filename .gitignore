@@ -35,7 +35,7 @@ lint/outputs/
 lint/tmp/
 **/lint-results*.xml
 
-# --- Kotlin / KSP ---
+# --- Kotlin 2.x local caches (Koin has no extra generated dirs; Hilt/KSP output was only under build/, ignored above) ---
 .kotlin/
 
 # --- IntelliJ / Android Studio ---

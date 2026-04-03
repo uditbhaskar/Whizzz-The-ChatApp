@@ -1,8 +1,3 @@
-/**
- * Application navigation: themed root, [NavHost] routes, and deep links into chat.
- *
- * @author udit
- */
 package com.example.whizzz.navigation
 
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,28 +11,32 @@ import androidx.navigation.navArgument
 import com.example.whizzz.core.common.navigation.WhizzzRoutes
 import com.example.whizzz.core.strings.WhizzzStrings
 import com.example.whizzz.core.ui.theme.WhizzzTheme as AppTheme
-import com.example.whizzz.feature.auth.forgot.ForgotRoute
-import com.example.whizzz.feature.auth.login.LoginRoute
-import com.example.whizzz.feature.auth.register.RegisterRoute
-import com.example.whizzz.feature.chat.ConversationRoute
-import com.example.whizzz.feature.home.HomeRoute
+import com.example.whizzz.feature.auth.ui.forgot.ForgotRoute
+import com.example.whizzz.feature.auth.ui.login.LoginRoute
+import com.example.whizzz.feature.auth.ui.register.RegisterRoute
+import com.example.whizzz.feature.chat.ui.ConversationRoute
+import com.example.whizzz.feature.chat.ui.PeerProfileRoute
+import com.example.whizzz.feature.home.ui.home.HomeRoute
+import com.example.whizzz.presence.AppProcessPresenceEffect
 import com.example.whizzz.splash.SplashRoute
 
 /**
- * Root composable: applies app theme and shows [WhizzzNavHost].
+ * Root Compose entry: applies [AppTheme] and hosts [WhizzzNavHost]. No parameters.
  *
  * @author udit
  */
 @Composable
 fun WhizzzApp() {
     AppTheme(darkTheme = true, dynamicColor = false, useBrandDarkColors = true) {
+        AppProcessPresenceEffect()
         WhizzzNavHost(modifier = Modifier.fillMaxSize())
     }
 }
 
 /**
- * [NavHost] for splash, auth, home shell, and one-to-one chat.
+ * [NavHost] for splash, auth, home shell, chat, and peer profile destinations.
  *
+ * @param modifier Modifier applied to the [NavHost].
  * @author udit
  */
 @Composable
@@ -77,7 +76,11 @@ fun WhizzzNavHost(modifier: Modifier = Modifier) {
         composable(WhizzzRoutes.FORGOT) {
             ForgotRoute(onBack = { navController.popBackStack() })
         }
-        composable(WhizzzRoutes.HOME) {
+        composable(
+            route = WhizzzRoutes.HOME,
+            exitTransition = { homeExitTransition() },
+            popEnterTransition = { homePopEnterTransition() },
+        ) {
             HomeRoute(
                 onSignOut = {
                     navController.navigate(WhizzzRoutes.LOGIN) {
@@ -95,8 +98,27 @@ fun WhizzzNavHost(modifier: Modifier = Modifier) {
             arguments = listOf(
                 navArgument(WhizzzStrings.Nav.ARG_PEER_ID) { type = NavType.StringType },
             ),
+            enterTransition = { chatEnterTransition() },
+            exitTransition = { chatExitTransition() },
+            popEnterTransition = { chatPopEnterTransition() },
+            popExitTransition = { chatPopExitTransition() },
         ) {
-            ConversationRoute(onBack = { navController.popBackStack() })
+            ConversationRoute(
+                onBack = { navController.popBackStack() },
+                onOpenPeerProfile = { userId ->
+                    navController.navigate(WhizzzRoutes.peerProfile(userId))
+                },
+            )
+        }
+        composable(
+            route = WhizzzRoutes.PEER_PROFILE_PATTERN,
+            arguments = listOf(
+                navArgument(WhizzzStrings.Nav.ARG_PROFILE_USER_ID) { type = NavType.StringType },
+            ),
+            enterTransition = { peerProfileEnterTransition() },
+            popExitTransition = { peerProfilePopExitTransition() },
+        ) {
+            PeerProfileRoute(onBack = { navController.popBackStack() })
         }
     }
 }

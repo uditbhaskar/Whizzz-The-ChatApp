@@ -3,8 +3,9 @@ package com.example.whizzz.domain.connectivity
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * Observes whether the device has a validated internet connection.
+ * Domain port: validated internet reachability (implementation in the data layer).
  *
+ * @property isOnline Hot [StateFlow]; `true` when the device is considered online.
  * @author udit
  */
 interface NetworkConnectivity {

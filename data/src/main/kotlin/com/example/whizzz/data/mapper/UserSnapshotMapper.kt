@@ -5,8 +5,10 @@ import com.example.whizzz.domain.model.User
 import com.google.firebase.database.DataSnapshot
 
 /**
- * Maps Realtime Database `Users` nodes to [User].
+ * Builds a [User] when `id` is present; fills missing optional strings with defaults.
  *
+ * @receiver User node under `Users`.
+ * @return [User] or `null` if `id` is missing.
  * @author udit
  */
 internal fun DataSnapshot.toUserOrNull(): User? {

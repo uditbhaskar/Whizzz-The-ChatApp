@@ -5,8 +5,10 @@ import com.example.whizzz.domain.model.ChatMessage
 import com.google.firebase.database.DataSnapshot
 
 /**
- * Maps `Chats` push nodes to [ChatMessage].
+ * Parses sender, receiver, body, timestamp, and seen flag when all required fields exist.
  *
+ * @receiver Push key node under `Chats`.
+ * @return [ChatMessage] or `null` if the snapshot is incomplete.
  * @author udit
  */
 internal fun DataSnapshot.toChatMessageOrNull(): ChatMessage? {

@@ -7,8 +7,5 @@
 -keep class com.google.firebase.** { *; }
 -keep class com.google.android.gms.** { *; }
 
-# Hilt
--dontwarn dagger.hilt.**
--keep class dagger.hilt.** { *; }
--keep class javax.inject.** { *; }
--keep class * extends dagger.hilt.android.internal.managers.ViewComponentManager$FragmentContextWrapper { *; }
+# Koin
+-dontwarn org.koin.core.error.**
