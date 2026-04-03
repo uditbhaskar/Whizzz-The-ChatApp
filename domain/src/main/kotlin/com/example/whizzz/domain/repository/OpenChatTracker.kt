@@ -1,14 +1,14 @@
 package com.example.whizzz.domain.repository
 
 /**
- * Remembers which 1:1 thread is in the foreground (for notification suppression).
- *
+ * Marks which peer conversation is active for notification policy.
  * @author udit
  */
 interface OpenChatTracker {
     /**
-     * @param peerId Other user's UID, or `null` when leaving the thread.
+     * Sets the peer UID for the open conversation, or clears it when leaving.
      *
+     * @param peerId Other user's UID, or `null` when no chat is foregrounded.
      * @author udit
      */
     fun setActivePeer(peerId: String?)

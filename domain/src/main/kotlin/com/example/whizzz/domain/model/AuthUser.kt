@@ -5,7 +5,6 @@ package com.example.whizzz.domain.model
  *
  * @property uid Stable user identifier from the identity provider.
  * @property email Primary email when available; may be null for some providers or states.
- *
  * @author udit
  */
 data class AuthUser(

@@ -9,7 +9,6 @@ package com.example.whizzz.domain.model
  * @property message Plain-text body.
  * @property timestamp Milliseconds or string from the backend, used for ordering.
  * @property seen Whether the recipient has marked the message as seen.
- *
  * @author udit
  */
 data class ChatMessage(

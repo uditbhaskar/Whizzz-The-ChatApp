@@ -11,6 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
+/**
+ * Fixed Material 3 dark color scheme using Whizzz brand purples, greens, and charcoal surfaces.
+ * @author udit
+ */
 private val WhizzzBrandDarkScheme = darkColorScheme(
     primary = WhizzzAccent,
     onPrimary = Color.Black,
@@ -31,8 +35,12 @@ private val WhizzzBrandDarkScheme = darkColorScheme(
 )
 
 /**
- * Root Compose theme for Whizzz.
+ * Root Compose theme for Whizzz: selects a Material 3 color scheme then wraps [MaterialTheme].
  *
+ * @param darkTheme Whether to prefer dark palettes when not using fixed brand dark.
+ * @param dynamicColor Use Material You dynamic colors on supported API levels.
+ * @param useBrandDarkColors Forces the custom dark brand scheme when [darkTheme] is true.
+ * @param content Root composable subtree receiving typography and colors.
  * @author udit
  */
 @Composable

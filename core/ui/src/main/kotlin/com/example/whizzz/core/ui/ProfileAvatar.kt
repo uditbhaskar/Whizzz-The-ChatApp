@@ -1,8 +1,3 @@
-/**
- * Profile avatar [Composable]: default asset, base64 `data:` URIs (decoded off the main thread), or remote URLs via Coil.
- *
- * @author udit
- */
 package com.example.whizzz.core.ui
 
 import android.graphics.BitmapFactory
@@ -26,7 +21,13 @@ import com.example.whizzz.core.strings.WhizzzStrings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-/** Decodes a `data:image/...;base64,...` payload to an [ImageBitmap], or null if invalid. */
+/**
+ * Decodes a `data:image/...;base64,...` payload to an [ImageBitmap], or null if invalid.
+ *
+ * @param dataUri Full data URI including base64 segment.
+ * @return Compose bitmap or `null` when decoding fails.
+ * @author udit
+ */
 internal fun decodeDataUriToImageBitmap(dataUri: String): ImageBitmap? {
     if (!dataUri.startsWith("data:image/", ignoreCase = true)) return null
     val comma = dataUri.indexOf(',')
@@ -47,6 +48,9 @@ internal fun decodeDataUriToImageBitmap(dataUri: String): ImageBitmap? {
  * Circular-style avatar: placeholder for default profile, in-memory bitmap for data URIs, or [AsyncImage] for HTTP(S).
  *
  * @param imageUrl Raw URL, `"default"`, blank, or a base64 data URI from the backend.
+ * @param modifier Layout and graphics modifier for the underlying image.
+ * @param contentScale How the bitmap or remote image fits its bounds.
+ * @author udit
  */
 @Composable
 fun WhizzzProfileAvatar(
@@ -62,12 +66,12 @@ fun WhizzzProfileAvatar(
     var dataBitmap by remember(imageUrl) { mutableStateOf<ImageBitmap?>(null) }
 
     LaunchedEffect(imageUrl) {
-        if (isDataUri) {
-            dataBitmap = withContext(Dispatchers.Default) {
+        dataBitmap = if (isDataUri) {
+            withContext(Dispatchers.Default) {
                 decodeDataUriToImageBitmap(imageUrl)
             }
         } else {
-            dataBitmap = null
+            null
         }
     }
 

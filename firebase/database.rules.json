@@ -2,6 +2,7 @@
   "rules": {
     "Users": {
       ".read": "auth != null",
+      ".indexOn": ["username", "search"],
       "$uid": {
         ".write": "auth != null && auth.uid === $uid"
       }
@@ -15,6 +16,7 @@
     "ChatList": {
       ".read": "auth != null",
       "$ownerId": {
+        ".indexOn": ["timestamp"],
         "$otherId": {
           ".write": "auth != null && (auth.uid === $ownerId || auth.uid === $otherId)"
         }

@@ -1,15 +1,13 @@
 package com.example.whizzz.core.strings
 
 /**
- * Global string constants: UI copy, errors, Firebase schema keys, prefs, and FCM.
- *
+ * Root namespace for all Whizzz string constants used across modules.
  * @author udit
  */
 object WhizzzStrings {
 
     /**
-     * Navigation route segments (Compose NavHost).
-     *
+     * Compose NavHost route ids, path patterns, and nav argument names for type-safe linking.
      * @author udit
      */
     object Nav {
@@ -21,11 +19,13 @@ object WhizzzStrings {
         const val CHAT_PREFIX = "chat"
         const val CHAT_PATTERN = "$CHAT_PREFIX/{peerId}"
         const val ARG_PEER_ID = "peerId"
+        const val PEER_PROFILE_PREFIX = "peerProfile"
+        const val PEER_PROFILE_PATTERN = "$PEER_PROFILE_PREFIX/{profileUserId}"
+        const val ARG_PROFILE_USER_ID = "profileUserId"
     }
 
     /**
-     * Main UI labels and titles.
-     *
+     * Screen titles, button labels, hints, and accessibility-oriented copy for primary flows.
      * @author udit
      */
     object Ui {
@@ -50,11 +50,18 @@ object WhizzzStrings {
         const val TYPE_MESSAGE = "Type a message"
         const val SEND = "Send"
         const val NO_CHATS_YET = "All your chats will appear here!"
+        const val PROFILE_NOT_AVAILABLE = "No profile data found for this account."
         const val BIO = "Bio"
+        const val ABOUT = "About"
+        const val PROFILE_PHOTO_HINT = "Tap your photo to add or change it."
+        const val PROFILE_PHOTO_VIEW_HINT = "Tap the photo to view it."
         const val SAVE = "Save"
         const val EDIT_USERNAME = "Edit username"
         const val EDIT_BIO = "Edit bio"
         const val CHANGE_PHOTO = "Change photo"
+        const val TAKE_PHOTO = "Take photo"
+        const val CHOOSE_FROM_GALLERY = "Choose from gallery"
+        const val CANCEL = "Cancel"
         const val RESET_EMAIL_HINT = "Enter your email"
         const val SEND_RESET = "Send reset link"
         const val BACK = "Back"
@@ -69,11 +76,17 @@ object WhizzzStrings {
         const val RESET_PASSWORD_TITLE = "Reset Password"
         const val SHOW_PASSWORD = "Show password"
         const val HIDE_PASSWORD = "Hide password"
+        const val CONTACT_INFO = "Contact info"
+        const val PROFILE_PHOTO = "Profile photo"
+        const val SHARE = "Share"
+        const val SAVE_TO_GALLERY = "Save to gallery"
+        const val NO_PHOTO_TO_SHARE = "No profile photo to share or save."
+        const val PHOTO_SAVED = "Photo saved to gallery"
+        const val COULD_NOT_SAVE_PHOTO = "Couldn't save photo. Try again."
     }
 
     /**
-     * Error and validation messages.
-     *
+     * Validation failures, auth errors, offline messaging, and Firebase setup guidance for Snack bars and dialogs.
      * @author udit
      */
     object Errors {
@@ -102,6 +115,8 @@ object WhizzzStrings {
         const val NETWORK_ERROR = "Network error. Check your connection."
         const val OFFLINE_GENERIC =
             "You're offline. Check your Wi-Fi or mobile data, then try again."
+        const val CAMERA_PERMISSION_REQUIRED =
+            "Allow camera access to take a new profile photo, or pick one from the gallery."
         const val OFFLINE_AUTH_SIGN_IN =
             "You're offline. Connect to the internet to sign in."
         const val OFFLINE_AUTH_SIGN_UP =
@@ -114,6 +129,22 @@ object WhizzzStrings {
             "Couldn't load messages. Check your connection and try again."
         const val LOAD_PEOPLE_FAILED =
             "Couldn't load people. Check your connection and try again."
+
+        /**
+         * Used when [com.example.whizzz.core.common.errors.userFacingMessage] detects permission / unauthenticated
+         * patterns in the exception chain (not raw Firebase text).
+         * @author udit
+         */
+        const val DATA_ACCESS_DENIED =
+            "Access denied. Sign out and sign in again, then try again."
+
+        /**
+         * Used when aggregated throwable messages suggest missing RTDB index / query setup (e.g. `indexOn` hints).
+         * @author udit
+         */
+        const val LIST_TEMPORARILY_UNAVAILABLE =
+            "This list couldn't be loaded. Try again in a moment."
+
         const val LOAD_CHATS_FAILED =
             "Couldn't load your chats. Check your connection and try again."
         const val MESSAGE_SEND_FAILED =
@@ -125,8 +156,7 @@ object WhizzzStrings {
     }
 
     /**
-     * Success / info messages.
-     *
+     * Non-error user feedback such as post-action confirmations (e.g. email sent).
      * @author udit
      */
     object Messages {
@@ -134,8 +164,7 @@ object WhizzzStrings {
     }
 
     /**
-     * Realtime Database nodes and field keys.
-     *
+     * Firebase Realtime Database node names, child field keys, and query helpers shared by data/domain layers.
      * @author udit
      */
     object Db {
@@ -164,8 +193,7 @@ object WhizzzStrings {
     }
 
     /**
-     * Default profile values on registration.
-     *
+     * Fallback profile image token, starter bio, offline status, and online presence token used by domain rules.
      * @author udit
      */
     object Defaults {
@@ -176,19 +204,17 @@ object WhizzzStrings {
     }
 
     /**
-     * SharedPreferences keys.
-     *
+     * SharedPreferences file name, keys, and sentinel values for lightweight local state (e.g. open chat).
      * @author udit
      */
     object Prefs {
         const val FILE_NAME = "PREFS"
-        const val KEY_CURRENT_USER = "currentuser"
+        const val KEY_CURRENT_USER = "current"
         const val VALUE_NO_ACTIVE_CHAT = "none"
     }
 
     /**
-     * FCM notification title and data-map keys (client + Cloud Functions).
-     *
+     * FCM notification title and payload keys exchanged between the client, backend, and push handling code.
      * @author udit
      */
     object Fcm {
@@ -200,8 +226,7 @@ object WhizzzStrings {
     }
 
     /**
-     * Media / file hints.
-     *
+     * File extensions and MIME-related hints for profile image compression and export pipelines.
      * @author udit
      */
     object Media {
@@ -209,8 +234,7 @@ object WhizzzStrings {
     }
 
     /**
-     * System notification channel (FCM).
-     *
+     * Android notification channel id and display name for message notifications.
      * @author udit
      */
     object Notification {

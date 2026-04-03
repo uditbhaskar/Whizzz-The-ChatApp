@@ -7,29 +7,30 @@ import androidx.core.app.NotificationCompat
 import com.example.whizzz.MainActivity
 import com.example.whizzz.R
 import com.example.whizzz.core.strings.WhizzzStrings
-import com.example.whizzz.data.prefs.OpenChatStore
+import com.example.whizzz.data.local.OpenChatStore
 import com.example.whizzz.domain.repository.FcmTokenRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 /**
- * FCM: refresh token storage and show data messages when not in the active thread.
- *
+ * Persists refreshed FCM tokens and posts notifications when the sender chat is not foreground.
  * @author udit
  */
-@AndroidEntryPoint
-class WhizzzFirebaseMessagingService : FirebaseMessagingService() {
+class WhizzzFirebaseMessagingService : FirebaseMessagingService(), KoinComponent {
 
-    @Inject
-    lateinit var fcmTokenRepository: FcmTokenRepository
+    private val fcmTokenRepository: FcmTokenRepository by inject()
+    private val openChatStore: OpenChatStore by inject()
 
-    @Inject
-    lateinit var openChatStore: OpenChatStore
-
+    /**
+     * Saves the new FCM registration token for the signed-in Firebase user.
+     *
+     * @param token Token string from Firebase.
+     * @author udit
+     */
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -38,6 +39,12 @@ class WhizzzFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    /**
+     * Shows a notification for data payloads directed at the current user when that chat is not open.
+     *
+     * @param remoteMessage Incoming FCM message with data map.
+     * @author udit
+     */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         val data = remoteMessage.data

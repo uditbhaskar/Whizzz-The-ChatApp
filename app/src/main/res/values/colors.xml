@@ -3,4 +3,6 @@
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#242325</color>
     <color name="white">#FFFFFF</color>
+    <!-- Adaptive launcher background (Whizzz chat icon) -->
+    <color name="ic_launcher_background">#121212</color>
 </resources>
