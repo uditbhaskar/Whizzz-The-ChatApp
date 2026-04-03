@@ -1,72 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.whizzz">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
-        android:allowBackup="true"
+        android:name=".WhizzzApplication"
+        android:enableOnBackInvokedCallback="true"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity
-            android:name=".view.ui.ForgetPasswordActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="false">
+        <!-- Lower initOrder than FirebaseInitProvider (~100) so FirebaseApp exists before App Check. -->
+        <provider
+            android:name=".AppCheckInitProvider"
+            android:authorities="${applicationId}.appcheckinit"
+            android:exported="false"
+            android:initOrder="99" />
 
-        </activity>
         <activity
-            android:name=".view.ui.MessageActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity
-            android:name=".view.ui.SplashActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:theme="@style/SplashTheme">
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Whizzz.Splash"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ui.HomeActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait">
-
-        </activity>
-        <activity
-            android:name=".view.ui.SignupActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity
-            android:name=".view.ui.LoginActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
 
         <service
-            android:name=".services.notifications.MyFirebaseMessaging"
-            android:enabled="true"
-            android:exported="true">
+            android:name=".messaging.WhizzzFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>
-
 </manifest>

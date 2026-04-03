@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "16626684816",
+    "firebase_url": "https://whizzz-cad4a.firebaseio.com",
+    "project_id": "whizzz-cad4a",
+    "storage_bucket": "whizzz-cad4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16626684816:android:f835cbf3f585a6fce55915",
+        "android_client_info": {
+          "package_name": "com.example.whizzz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16626684816-k56h3udk6m0jk6jvqr98qp8f7qepk5uj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.whizzz",
+            "certificate_hash": "1260421f44e8231eece5cc9fe81113ba6c6cc1f0"
+          }
+        },
+        {
+          "client_id": "16626684816-g4666b9rsu4h4dfh0vg58uun0kn0697l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkryscD9YEZSPH3EAdEc42DbZFAz_iS_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16626684816-g4666b9rsu4h4dfh0vg58uun0kn0697l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

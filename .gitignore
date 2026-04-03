@@ -1,14 +1,114 @@
+# --- Gradle / Android build ---
+.gradle/
+build/
+
+# Local SDK path & secrets (never commit)
+local.properties
+secrets.properties
+*.keystore
+*.jks
+
+# Outputs & packaging
+*.apk
+*.aar
+*.ap_
+*.aab
+*.dex
+*.class
+
+# NDK / CMake
+.externalNativeBuild/
+.cxx/
+
+# Generated
+bin/
+gen/
+out/
+release/
+captures/
+.navigation/
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+**/lint-results*.xml
+
+# --- Kotlin / KSP ---
+.kotlin/
+
+# --- IntelliJ / Android Studio ---
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+.idea/caches/
+.idea/libraries/
+.idea/shelf/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries/
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/deploymentTargetSelector.xml
+.idea/deploymentTargetDropDown.xml
+.idea/render.experimental.xml
+.idea/AndroidProjectSystem.xml
+.idea/markdown.xml
+.idea/migrations.xml
+.idea/*.xml.bak
+.idea/dataSources/
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+.idea/dbnavigator.xml
+.idea/httpRequests/
+.idea/copilot.data.migration.agent.xml
+
+# Uncomment to ignore the whole .idea folder (stop tracking IDE project files entirely):
+# .idea/
+
+# --- OS & editors ---
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+Thumbs.db
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.orig
+
+# --- Logs & debug ---
+*.log
+firebase-debug.log
+firebase-debug.*.log
+
+# --- Firebase / Cloud Functions (local) ---
+functions/node_modules/
+functions/.runtimeconfig.json
+functions/lib/
+functions/.env
+functions/.env.*
+
+# --- Env / local tooling (optional secrets) ---
+.env
+.env.local
+.env.*.local
+
+# --- Fastlane (if you add it) ---
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# --- JVM / profiling ---
+*.hprof
+
+# google-services.json — keep tracked for team builds; uncomment for public repos only:
+# app/google-services.json

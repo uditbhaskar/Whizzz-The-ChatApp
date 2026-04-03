@@ -1,0 +1,31 @@
+{
+  "rules": {
+    "Users": {
+      ".read": "auth != null",
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "Tokens": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
+      }
+    },
+    "ChatList": {
+      ".read": "auth != null",
+      "$ownerId": {
+        "$otherId": {
+          ".write": "auth != null && (auth.uid === $ownerId || auth.uid === $otherId)"
+        }
+      }
+    },
+    "Chats": {
+      ".read": "auth != null",
+      "$msgId": {
+        ".validate": "newData.hasChildren(['receiverId', 'senderId', 'message', 'timestamp', 'seen']) && newData.child('senderId').isString() && newData.child('receiverId').isString() && newData.child('message').isString() && newData.child('timestamp').isString() && newData.child('seen').isBoolean()",
+        ".write": "auth != null && ((!data.exists() && newData.child('senderId').val() === auth.uid) || (data.exists() && data.child('receiverId').val() === auth.uid && newData.child('senderId').val() === data.child('senderId').val() && newData.child('receiverId').val() === data.child('receiverId').val() && newData.child('message').val() === data.child('message').val() && newData.child('timestamp').val() === data.child('timestamp').val() && newData.child('seen').isBoolean()))"
+      }
+    }
+  }
+}

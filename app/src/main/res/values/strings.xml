@@ -1,46 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Whizzz</string>
-    <string name="hi_there">Hi there!</string>
-    <string name="log_in_to_continue">Log in to continue.</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="welcome_sign">Welcome!</string>
-    <string name="sign_up_here">Sign up here.</string>
-    <string name="sign_up">Sign up</string>
-    <string name="already_have_an_account">Already have an account?</string>
-    <string name="login_here"> Login.</string>
-    <string name="vector_image">Vector Image</string>
-    <string name="username">Username</string>
-    <string name="log_out">Log Out</string>
-    <string name="register">Register</string>
-    <string name="don_t_have_an_account">Don\'t have an account?</string>
-    <string name="user_names">Username</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="user">User</string>
-    <string name="messages_here">Messages here!</string>
-    <string name="type_your_messages_here">Type a message</string>
-    <string name="a_sample_message">A sample message</string>
-    <string name="profile">Profile</string>
-    <string name="s">Username</string>
-    <string name="todo1">TODO</string>
-    <string name="todo">TODO</string>
-    <string name="name">Name</string>
-    <string name="hey_there">Hey there!</string>
-    <string name="bio">Bio</string>
-    <string name="your_text_here">Your text here.</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="once_you_start_chatting_all_your_chat_appear_here">All your chats will appear here!</string>
-    <string name="_9_00_pm">9:00 PM</string>
-    <string name="toodo">TODO</string>
-    <string name="search">Search…</string>
-    <string name="seen">Seen</string>
-    <string name="forgot_your_password">Forget password?\u0020</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="enter_your_email">Enter your email</string>
-    <string name="reset">RESET</string>
-    <string name="by_clicking_reset_you_will_receive_an_email_n_to_reset_your_password">By clicking RESET, you will receive an email \n to reset your password.</string>
 </resources>
