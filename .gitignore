@@ -1,0 +1,89 @@
+# --- Gradle / Android build ---
+.gradle/
+build/
+
+# Local SDK path & secrets (never commit)
+local.properties
+secrets.properties
+*.keystore
+*.jks
+
+# Outputs & packaging
+*.apk
+*.aar
+*.ap_
+*.aab
+*.dex
+*.class
+
+# NDK / CMake
+.externalNativeBuild/
+.cxx/
+
+# Generated
+bin/
+gen/
+out/
+release/
+captures/
+.navigation/
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+**/lint-results*.xml
+
+# --- Kotlin 2.x local caches ---
+.kotlin/
+
+# --- IntelliJ / Android Studio (entire folder — do not commit) ---
+.idea/
+
+# --- OS & editors ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.orig
+
+# --- Logs & debug ---
+*.log
+firebase-debug.log
+firebase-debug.*.log
+
+# --- Firebase / Cloud Functions (local) ---
+functions/node_modules/
+functions/.runtimeconfig.json
+functions/lib/
+functions/.env
+functions/.env.*
+
+# --- Env / local tooling ---
+.env
+.env.local
+.env.*.local
+
+# --- Fastlane (if you add it) ---
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# --- JVM / profiling ---
+*.hprof
+
+# --- Firebase Android (client config — do not commit) ---
+**/google-services.json
+
+# --- GCP / Firebase Admin SDK (never commit) ---
+**/serviceAccount*.json
+*firebase-adminsdk*.json
+
+# --- Generic private keys ---
+*.pem
