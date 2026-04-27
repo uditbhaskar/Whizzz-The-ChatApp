@@ -1,6 +1,6 @@
-# Whizzz — The Chat App
+# Whizzz The Chat App
 
-Realtime **one-to-one chat** on Android: **Firebase** (Auth, Realtime Database, FCM), **Jetpack Compose**, **multi-module** layout, **Clean Architecture**, and **MVI**-style screens.
+Realtime **one to one chat** on Android: **Firebase** (Auth, Realtime Database, FCM), **Jetpack Compose**, **multi module** layout, **Clean Architecture**, and **MVI** style screens.
 
 ## Demo
 
